@@ -1,7 +1,7 @@
 import Image from "next/image"
-import PosterFabio from "../../../public/images/Poster-Fabio-Resized.png"
-import { imageStyle } from "../fonts"
-import Experiences from "../components/whoami/Experiences"
+import PosterFabio from "../../../../public/images/Poster-Fabio-Resized.png"
+import { imageStyle } from "../../fonts"
+import Experiences from "../../components/whoami/Experiences"
 
 export default function Whoami() {
 
