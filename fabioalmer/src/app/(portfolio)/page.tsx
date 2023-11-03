@@ -1,11 +1,11 @@
 "use client"
 import Image from 'next/image'
-import profilePic from "../../public/images/Prof_Pic.jpg"
+import profilePic from "../../../public/images/Prof_Pic.jpg"
 import {useEffect, useState} from "react"
 
-import Spotify from './components/Spotify'
-import GetToKnowMe from './components/GetToKnowMe'
-import Icons from './components/Icons'
+import Spotify from '../components/Spotify'
+import GetToKnowMe from '../components/GetToKnowMe'
+import Icons from '../components/Icons'
 
 
 export default function MyPortofolio() {
