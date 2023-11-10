@@ -4,9 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import ReactSelect from "react-select"
-import { emailHandler } from "./EmailHandler"
+import { emailHandler } from "../../(portfolio)/api/EmailHandler"
+import Recaptcha from "./Recaptcha"
+
+
+
 
 const emailSubjectSchema = z.object({
     value:z.string().min(1, {message: "Kindly Select a Subject"}),
@@ -27,10 +31,21 @@ const validationSchema = z.object({
 })
 
 // // After you done just infer the validation scheme like this 
-
 export type ValidationSchema = z.infer<typeof validationSchema>
 
 export default function FormInput(){
+
+    const [isVerified,setVerified] = useState(false)
+    const [resetCaptcha,setResetCapthca] = useState(false)
+    
+    const handleVerified = (result:string|undefined) => {
+        if (result === "success") {
+            setVerified(true)   
+        } else {
+            setVerified(false)
+        }
+        
+    }
 
     const subjectEmailOptions = [
         {value: "research collaboration", label:"Research Collaboration"},
@@ -40,7 +55,7 @@ export default function FormInput(){
     ]
 
     let [value,setValue] = useState<any>("")
-    const {
+    const { 
         register,
         handleSubmit,
         watch,
@@ -54,12 +69,19 @@ export default function FormInput(){
         if(data.sugar.length != 0) {
             alert("Bot Detected ! Your Ip has been blocked and you can't use this form for one week thanks !")
         } else {
+            // client info regarding result
+            const newData = JSON.stringify(data)
+            alert(newData)
+
+            // server side for handling the user inputs
             emailHandler(data) 
         }
     }
     useEffect(()=> {
         if (isSubmitSuccessful) {
             reset()
+            setResetCapthca(true)
+            setVerified(false)
         }
   
     },[isSubmitSuccessful])
@@ -118,7 +140,6 @@ export default function FormInput(){
                                         backgroundColor : errors.emailSubject?.message? "#FCA5A5": "white",
                                         borderColor: "black",
                                         borderWidth: "2px",
-                                        borderStyle: "solid"
                                     })
                                 }}
                                 />
@@ -130,8 +151,12 @@ export default function FormInput(){
                     </div>
                     <textarea className={`mx-7 mb-1 w-[385px] h-[253px] ${errors.emailMessage?.message?"bg-red-300":"bg-black"} text-white rounded-xl p-3`} placeholder="Write your message here" {...register("emailMessage")}></textarea>
                     
-                <div className="flex flex-grow items-center justify-center">
-                    <button className={`btn btn-ghost text-white ${isValid? "bg-green-500":"bg-black"} mb-2`} disabled={(!isDirty)} >Send</button>
+                <div className="flex flex-col flex-grow items-center justify-center">
+                    <Recaptcha
+                    statusUpdate= {handleVerified}
+                    resetCaptcha = {resetCaptcha}
+                    />
+                    <button className={`btn btn-ghost text-white ${isValid? "bg-green-500":"bg-black"} mb-2`} disabled={(!isDirty || !isVerified)} >Send</button>
                 </div>
             </div>
         </form>
