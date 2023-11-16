@@ -7,3 +7,10 @@ export default function Footer() {
        
     )
 }
+
+
+export function PostFooter(){
+    return (
+        <h1>Back to top</h1>
+    )
+}

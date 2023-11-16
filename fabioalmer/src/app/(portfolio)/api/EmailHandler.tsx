@@ -1,41 +1,16 @@
 "use server"
 
 import { ValidationSchema } from "../../components/contact/FormInput";
-import axios from "axios"
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
 import ReceivedEmail from "./emails/EmailReceived";
 import ConfirmationEmail from "./emails/EmailConfirmation";
 
 
-export async function verifyCaptcha(token:string|null) {
-    const secretKey = process.env.RECAPTCHA_SECRET_KEY
-    const res = await axios.post(   
-        `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`
-    )
-    console.log(res.data)
-
-    if (res.data.success) {
-        return "success"
-    } else {
-        return "fail"
-    }
-}
-
-
-
 export async function emailHandler(data:ValidationSchema) {
     // perhaps save some of the data to a database ? just in case we want to contact them directly
     const ownerAddress = process.env.GOOGLE_GMAIL_ACCOUNT!;
     // this transport the email from the website to the client to confirm the message is received 
-    const testTransporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: {
-            user: 'hermann.bayer67@ethereal.email',
-            pass: 'ex94sM9AtDBYgFeFRD'
-        }
-    });
     
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -105,3 +80,5 @@ export async function emailHandler(data:ValidationSchema) {
 
     // this transport the email from the website to use with the information we need
 }
+
+

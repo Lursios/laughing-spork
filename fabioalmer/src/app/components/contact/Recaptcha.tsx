@@ -1,6 +1,6 @@
 import { useRef} from "react"
 import ReCAPTCHA from "react-google-recaptcha"
-import { verifyCaptcha } from "@/app/(portfolio)/api/EmailHandler"
+import verifyCaptcha from "@/app/(portfolio)/api/RecatpchaHandler"
 
 type RecaptchaProp = {
     statusUpdate : (result?:string) => void,
