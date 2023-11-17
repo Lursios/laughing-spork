@@ -1,3 +1,6 @@
+"use client"
+import { useEffect, useState } from "react"
+import { fasterOne } from "../fonts"
 
 export default function Footer() {
     return (
@@ -9,8 +12,19 @@ export default function Footer() {
 }
 
 
+
 export function PostFooter(){
+
+    function handleClick(){
+        //back to the top 
+        window.scrollTo({
+            top:0,
+            behavior: "smooth"
+        });
+    }
     return (
-        <h1>Back to top</h1>
+        <div className="flex flex-row w-full items-center justify-center my-8">
+            <button onClick={() => handleClick()} className={`btn bg-transparent text-lg text-black hover:text-white ${fasterOne.className}`}>Back to top</button>
+        </div>
     )
 }

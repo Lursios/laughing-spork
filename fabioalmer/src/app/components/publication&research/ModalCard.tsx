@@ -14,7 +14,8 @@ export type ModalCardPropType = {
     researchPageRoute : string,
     researchTitle : string,
     researchSummary : string,
-    researchImage : string
+    researchImage : string,
+    researchId : string
 }
 
 
@@ -28,7 +29,8 @@ export default function ModalCard() {
         researchPageRoute : "",
         researchTitle : "",
         researchSummary : "",
-        researchImage : ""
+        researchImage : "",
+        researchId:""
 
     })
 
@@ -98,7 +100,7 @@ export default function ModalCard() {
 
             <div className="flex flex-row h-2/5 w-full rounded-b-xl">
                 <div className="flex w-1/3 py-7 px-5 bg-white text-4xl text-extrabold rounded-bl-xl border-2 border-fill border-black">
-                    <Link className="flex flex-col justify-center items-center text-center" href={`/${modalResearch.researchPageRoute}`}>
+                    <Link className="flex flex-col justify-center items-center text-center" href={`/articlePosts/${modalResearch.researchPageRoute}?id=${modalResearch.researchId}`}>
                         <p>Find Out More</p>
                         <FaArrowRight size= "1.5rem"/>
                     </Link>
