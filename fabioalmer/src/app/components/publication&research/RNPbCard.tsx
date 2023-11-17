@@ -33,7 +33,8 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
                     researchPageRoute : research.link,
                     researchTitle : research.title,
                     researchSummary : research.summary,
-                    researchImage: research.image
+                    researchImage: research.image,
+                    researchId : id
                 };
 
                 handleOpenModal(modalCard)

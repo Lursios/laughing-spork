@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { fasterOne } from "../fonts"
 
 export default function Navbar() {
     return (
@@ -15,6 +16,10 @@ export default function Navbar() {
 
 export function PostNavbar(){
     return (
-        <h1>back to homepage</h1>
+        <div className={` flex flex-row justify-between text-2xl mt-16 mb-11 ${fasterOne.className}`}>
+            <Link href={"/publication&research"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Back to Homepage </Link>
+            <Link href={"/"} className="hover:bg-white p-2"> Heartbreak Annivesary</Link>
+        </div>
+
     )
 }
