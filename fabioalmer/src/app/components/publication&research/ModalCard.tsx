@@ -5,7 +5,7 @@ import Modal from "react-modal"
 import {FaArrowRight} from "@react-icons/all-files/fa/FaArrowRight"
 import {FaArrowLeft} from "@react-icons/all-files/fa/FaArrowLeft"
 import { IoCloseCircleSharp } from "@react-icons/all-files/io5/IoCloseCircleSharp"
-import ResearchCards from "./RNPbCard"
+import ResearchCards from "./RNPbCards"
 import { ResearchType } from "@/app/(portfolio)/api/ResearchHandler"
 
 Modal.setAppElement("body");

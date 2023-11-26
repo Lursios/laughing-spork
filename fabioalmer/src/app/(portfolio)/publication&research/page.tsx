@@ -1,5 +1,4 @@
-import ModalCard from "@/app/components/publication&research/ModalCard"
-import ResearchCards from "@/app/components/publication&research/RNPbCard"
+import ModalCard from "@/app/components/publication&research/ModalCard";
 
 export default async function PublicationResearch() {
     // we need to get the list of required documents data for our card component

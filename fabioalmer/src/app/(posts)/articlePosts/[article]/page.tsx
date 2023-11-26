@@ -12,13 +12,13 @@ export default function DynamicPost() {
 
     const [research,setResearch] = useState<ResearchType>( {
         id:"",
-        title : "string",
-        link : "string", // doi
-        publisher : "string",
-        authors : "string",
-        image : "string", //this the url to our save storage or something lah
-        summary : "string",
-        content : "string"
+        title : "",
+        link : "", // doi
+        publisher : "",
+        authors : "",
+        image : "", //this the url to our save storage or something lah
+        summary : "",
+        content : ""
     })
 
     const searchParams = useSearchParams();
