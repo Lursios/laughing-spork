@@ -10,8 +10,6 @@ import { emailHandler } from "../../(portfolio)/api/EmailHandler"
 import Recaptcha from "./Recaptcha"
 
 
-
-
 const emailSubjectSchema = z.object({
     value:z.string().min(1, {message: "Kindly Select a Subject"}),
     label:z.string().min(1,{message:"Just do it !"})
@@ -32,6 +30,7 @@ const validationSchema = z.object({
 
 // // After you done just infer the validation scheme like this 
 export type ValidationSchema = z.infer<typeof validationSchema>
+
 
 export default function FormInput(){
 
@@ -54,7 +53,6 @@ export default function FormInput(){
         {value: "others", label: "Others"}
     ]
 
-    let [value,setValue] = useState<any>("")
     const { 
         register,
         handleSubmit,
@@ -73,7 +71,7 @@ export default function FormInput(){
             const newData = JSON.stringify(data)
             alert(newData)
 
-            // server side for handling the user inputs
+            // server side for handling the user inputs which sends to the inputed email address and the owner
             emailHandler(data) 
         }
     }
