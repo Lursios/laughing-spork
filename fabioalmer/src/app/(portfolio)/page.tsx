@@ -18,7 +18,6 @@ export default function MyPortofolio() {
     setHiddenSpotify(!isHiddenSpotify)
   }
 
-
   useEffect(()=> {
     setHiddenSpotify(false);
     setHiddenSpotify(true);

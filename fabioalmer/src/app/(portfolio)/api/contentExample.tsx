@@ -1,6 +1,4 @@
 
-import Parser from "html-react-parser"
-
 export default function Content() {
 
     return (
