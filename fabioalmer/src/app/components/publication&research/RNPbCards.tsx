@@ -104,7 +104,6 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
                         <ResearchCard
                         handleCardClick={handleCardClick}
                         research={research}
-                        type="read"
                         />
                         
                     )
@@ -115,6 +114,8 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
                 <h1 className="text-5xl font-extrabold text-black pb-10">You've reached The End of My Research ! Thank you for Visiting</h1>
                 <PbButton
                 handleClick = {handleClick}
+                name="Back to Home"
+                type= "button"
                 />
             </section>      
         </div>

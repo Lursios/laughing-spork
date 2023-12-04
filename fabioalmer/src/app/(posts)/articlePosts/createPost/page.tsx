@@ -4,13 +4,11 @@ import TextEditor from "@/app/components/articlePosts/TextEditor";
 import {Editor} from "@tinymce/tinymce-react";
 import { useRef, useState } from "react";
 import PostInput, { PostInputImage,PostInputSummary,PostInputTest,PostInputType } from "@/app/components/articlePosts/PostInputs";
-import {useForm,Controller, FormProvider} from "react-hook-form";
+import {useForm,Controller, FormProvider, set} from "react-hook-form";
 import { custom, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ResearchCardPost } from "@/app/components/publication&research/RNPbCard";
 import PbButton from "@/app/components/publication&research/PbButton";
-
-
 
 
 
@@ -37,9 +35,8 @@ export type PostValidationSchema = z.infer<typeof postValidationSchema>
 export default function CreatePost(){
 
     const [typeAction,setTypeAction] = useState<string>("create");
-
-    const refTester = useRef<boolean>(true);
     const [isHidden,setHidden] = useState<boolean>(true)
+    const [isDark,setDark] = useState<boolean>(true)
   
     const methods = useForm<PostValidationSchema>({resolver:zodResolver(postValidationSchema),
       defaultValues:{
@@ -47,40 +44,21 @@ export default function CreatePost(){
         link : "test", // doi
         publisher : "test",
         authors : "test",
-        image : "test", //this the url to our save storage or something lah
+        image : "https://res.cloudinary.com/dz1i63qzt/image/upload/v1701710133/IsoDefaultImage.png", //this the url to our save storage or something lah
         summary : "test",
         content : "This is the content fetch data",
         postype:[{value:"publication",label:"publication"},{value:"publication",label:"publication"}],
 
     }})
 
-    const {
-      register,
-      handleSubmit,
-      watch,
-      control,
-      formState: {errors},
-    } = methods
-        
+    const {handleSubmit,watch,setValue} = methods
     const researchData = watch();
 
-    // const [researchData,setReseearchData] = useState<ResearchType>({
-    //     id:"",
-    //     title : "Just to test on the functionality making sure",
-    //     link : "", // doi
-    //     publisher : "",
-    //     authors : "",
-    //     image : "", //this the url to our save storage or something lah
-    //     summary : "",
-    //     content : "This is the content fetch data"
-    //     }
-    // );
-    
-
     const onSubmit = (data:PostValidationSchema)=> {
-      console.log("submitted")
+      console.log(data.content)
       const newData = JSON.stringify(data);
-      console.log("submitted")
+      // a function to handle the image submission so that it will return an link to the image instead
+
       alert(newData)
     }
 
@@ -92,6 +70,10 @@ export default function CreatePost(){
       setHidden(true);
     }
 
+    const onFileInput = (label:any,file:any)=> {
+      setValue(label,file);
+      console.log("value has been set")
+    }
         
     return (
         <>
@@ -109,26 +91,28 @@ export default function CreatePost(){
                         <PostInputTest  label="Link" register={methods.register} />
                         <PostInputTest  label="Publisher" register={methods.register} />
                         <PostInputType styleError={false} label="Postype" control={methods.control}/>
-                        <PostInputImage register={methods.register}/>
+                        <PostInputImage handleFileInput={onFileInput} register={methods.register}/>
                         <PbButton type="button" handleClick={confirmCardData} name="Confirm Data"/>
                     </div>
 
-                    <div className="flex h-fit my-20 ml-10">
+                    <div className="flex flex-col justify-center items-center space-y-4 h-fit my-20 ml-10">
                       <ResearchCardPost
                       handleCardClick={()=>console.log("clicked")}
                       research={{...researchData,id:""}}
+                      type = {isDark}
                       />
+                      <PbButton type="button" name={isDark?"Turn White": "Turn Dark"} handleClick={()=>setDark(!isDark)}/>
                     </div>     
                   </div>
 
-                  <div  hidden ={isHidden} className={isHidden?"":"flex flex-col "} >
+                  <div hidden ={isHidden} className={isHidden?"":"flex flex-col "} >
                     
                     <TextEditor
                     name="content"
                     control={methods.control}
                     />
                     <PostInputSummary
-                    register={methods.register}
+                    control={methods.control}
                     label={"Summary"}
                     handleButtonOneClick= {()=> {console.log("generate summary")}}
                     handleButtonTwoClick = {cancelCardData}
@@ -140,7 +124,6 @@ export default function CreatePost(){
             </FormProvider>
                
         </>
-
 
       );
 }
