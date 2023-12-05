@@ -9,6 +9,7 @@ import { custom, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ResearchCardPost } from "@/app/components/publication&research/RNPbCard";
 import PbButton from "@/app/components/publication&research/PbButton";
+import handlePostSubmission from "@/app/(portfolio)/api/PostHandler";
 
 
 
@@ -54,16 +55,13 @@ export default function CreatePost(){
     const {handleSubmit,watch,setValue} = methods
     const researchData = watch();
 
-    const onSubmit = (data:PostValidationSchema)=> {
-      console.log(data.content)
-      const newData = JSON.stringify(data);
-      // a function to handle the image submission so that it will return an link to the image instead
-
-      alert(newData)
+    const onSubmit = async (data:PostValidationSchema)=> {
+      const result = await handlePostSubmission(data); //This is equivalent of sending a POST request to our api route
+      console.log(result)
     }
 
     const confirmCardData = ()=> {
-      setHidden(false)
+      setHidden(false);
     }
 
     const cancelCardData = ()=> {
