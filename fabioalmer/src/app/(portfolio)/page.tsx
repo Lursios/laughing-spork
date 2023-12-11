@@ -6,28 +6,40 @@ import {useEffect, useState} from "react"
 import Spotify from '../components/Spotify'
 import GetToKnowMe from '../components/GetToKnowMe'
 import Icons from '../components/Icons'
+import { getPosts } from './api/ResearchHandler'
 
 
 
 export default function MyPortofolio() {
 
   const [isHiddenSpotify,setHiddenSpotify] = useState(true)
-
+  const [posts,setPosts] = useState<any>()
 
   function handleSpotifyClick() {
     setHiddenSpotify(!isHiddenSpotify)
   }
 
-  useEffect(()=> {
-    setHiddenSpotify(false);
-    setHiddenSpotify(true);
-    console.log("this was loaded at first")
-  },[])
+
+  // useEffect(()=> {
+    
+  //   const fetchData = async ()=> {
+  //     const data = await getPosts()
+  //     setPosts(data)
+  //   }
+
+  //   fetchData().catch((e)=> {
+  //     console.error("an error occured while getting the data", e)
+  //   })
+
+  // },[])
 
   return (
     <div className= "flex w-4/5 mx-auto pl-14 pr-14 mt-6">
 
       <div className="w-1/2 flex flex-col justify-center items-center">
+          {/* {posts && posts.map((post:any)=> {
+            return <p id={post.id}>{`${post.title}`}</p>
+          })} */}
           <Image
           src={profilePic}
           alt='Picture of Author'

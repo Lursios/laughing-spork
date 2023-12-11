@@ -1,4 +1,16 @@
 "use server"
+import prisma from "../../../../prisma/prisma";
+
+
+export async function getPosts() {
+    try {
+        await new Promise(resolve => setTimeout(resolve,3000))
+        const researches = await prisma.posts.findMany();
+        return researches
+    } catch (error) {
+        return {error}
+    }
+}
 
 export type ResearchType = {
     id:string,
@@ -19,7 +31,7 @@ const research = [
         publisher : "Journal Of Applied Psychology",
         authors : "Fabio Almer Agoes S.T, M.Sc & Co",
         image : "/images/researchImage1.jpg",
-        summary : "he document discusses the development of an eco-friendly hydrogen propulsion ship, supported by the Ministry of Trade, Industry & Energy in Korea. It compares different cases and technologies for decarbonizing maritime transport, focusing on zero-carbon hydrogen and ammonia fuels. The study also analyzes the environmental impacts, particularly greenhouse gas emissions, of each case.",
+        summary : "the document discusses the development of an eco-friendly hydrogen propulsion ship, supported by the Ministry of Trade, Industry & Energy in Korea. It compares different cases and technologies for decarbonizing maritime transport, focusing on zero-carbon hydrogen and ammonia fuels. The study also analyzes the environmental impacts, particularly greenhouse gas emissions, of each case.",
         content : `<div>
         <h1>Hi im content</h1>
         <p>This is going to test </p>
@@ -98,6 +110,7 @@ export async function getResearch() {
     // fetch to our database when setup 
     return research
 }
+
 
 export async function getResearchById(id:string) {
 
