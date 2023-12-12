@@ -4,16 +4,85 @@ import prisma from "../../../../prisma/prisma";
 
 export async function getPosts() {
     try {
-        await new Promise(resolve => setTimeout(resolve,3000))
-        const researches = await prisma.posts.findMany();
+        // await new Promise(resolve => setTimeout(resolve,3000))
+        const researches:any = await prisma.posts.findMany({
+            select: {
+                id: true,
+                title:true,
+                link:true,
+                publisher:true,
+                authors:true,
+                image:true,
+                summary:true,
+                content:true     
+            }
+        });
         return researches
     } catch (error) {
         return {error}
     }
 }
 
+export async function createPost(postData:CreateResearchType){
+    try {
+        const result = await prisma.posts.create({
+            data: {
+                title:postData.title,
+                link:postData.link,
+                publisher:postData.publisher,
+                authors:postData.authors,
+                image:postData.image,
+                summary:postData.summary,
+                content:postData.content,
+                type:postData.postype
+            }
+        })
+
+        return {result}
+
+    } catch(error) {
+        return {error}
+    }
+
+}
+
+export async function getPostById(postId:number){
+    try {
+        const post:any = await prisma.posts.findUniqueOrThrow({
+            where:{
+                id:postId
+            },  select: {
+                id: true,
+                title:true,
+                link:true,
+                publisher:true,
+                authors:true,
+                image:true,
+                summary:true,
+                content:true     
+            }
+        });
+        return post
+
+    } catch (error) {
+        return {error}
+    }
+}
+
+
+export type CreateResearchType = {
+    title : string,
+    link : string, // doi
+    publisher : string,
+    authors : string,
+    image : string, //this the url to our save storage or something lah
+    summary : string,
+    content : string,
+    postype : string
+}   
+
 export type ResearchType = {
-    id:string,
+    id:number,
     title : string,
     link : string, // doi
     publisher : string,
@@ -25,7 +94,7 @@ export type ResearchType = {
 
 const research = [
     {
-        id: "1",
+        id: 1,
         title : "Ruminative Thoughts and Their Relation to Depression and Anxiety",
         link : "doi:10.1111j.1559-1816.2002.tb00225.x", // doi
         publisher : "Journal Of Applied Psychology",
@@ -59,7 +128,7 @@ const research = [
     },
 
     {
-        id :"2",
+        id :2,
         title : "A Preliminary Study on an Alternative Ship Propulsion System Fueled by Ammonia: Environmental and Economic Assessments",
         link : "10.3390jmse8030183", // doi
         publisher : "Journal of Marine Science And Engineering",
@@ -70,7 +139,7 @@ const research = [
     },
 
     {
-        id :"3",
+        id :3,
         title : "Your future research input",
         link : "10.3390jmse8030183", // doi
         publisher : "Journal of Future Associate",
@@ -81,7 +150,7 @@ const research = [
     },
 
     {
-        id :"4",
+        id :4,
         title : "Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis, sem. Phasellus rhoncus. Aenean id metus id velit ullamcorper pulvinar. Vestibulum fermen",
         link : "theresearchpost", // doi
         publisher : "Journal of Future Associate",
@@ -92,7 +161,7 @@ const research = [
     },
     
     {
-        id :"5",
+        id :5,
         title : "Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis, sem. Phasellus rhoncus. Aenean id metus id velit ullamcorper pulvinar. Vestibulum fermen",
         link : "theresearchpostKinslt/", // doi
         publisher : "Just to make sure that it works",
@@ -112,10 +181,10 @@ export async function getResearch() {
 }
 
 
-export async function getResearchById(id:string) {
+export async function getResearchById(id:number) {
 
     let currentResearch:ResearchType = {
-        id:"",
+        id:1,
         title : "string",
         link : "string", // doi
         publisher : "string",
