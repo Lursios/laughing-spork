@@ -19,7 +19,7 @@ export const PostInputTest = (({label,register}:PostInputProps)=> {
     return (
         <div className="flex flex-col mr-[200px]">  
             <label className="font-bold text-black text-base">{label}</label>
-            <input {...register(label.toLowerCase())} className={`border-solid border-2 w-[364px] h-7 mb-8 border-black bg-white`} placeholder={""}></input>
+            <input {...register(label.toLowerCase())} className={`border-solid border-2 w-[364px] h-7 mb-8 border-black rounded-md bg-white px-2`} placeholder={""}></input>
         </div>
     )
 })
@@ -160,7 +160,6 @@ export function PostInputSummary({label,control,handleButtonOneClick,handleButto
 
     const onKeyDown = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const curentCharacter:string = event.target.value;
-        console.log(curentCharacter);
         setCharacterCount(curentCharacter.length.toString())
     }
    

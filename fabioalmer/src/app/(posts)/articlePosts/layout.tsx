@@ -1,5 +1,5 @@
-import { PostFooter } from "../components/Footer"
-import { PostNavbar } from "../components/Navbar"
+import { PostFooter } from "../../components/Footer"
+import { PostNavbar } from "../../components/Navbar"
 
 
 export default function Template({ children }: { children: React.ReactNode }) {

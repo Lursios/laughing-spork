@@ -1,8 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import testerImage from "../../../../public/images/testerImage.png"
-import { ResearchType,getResearch} from "@/app/(portfolio)/api/ResearchHandler"
+import { ResearchType,getResearch,getPosts} from "@/app/(portfolio)/api/ResearchHandler"
 import TextWithArrow from "./textWithArrow"
 import Link from "next/link"
 import PbButton from "./PbButton"
@@ -25,7 +24,7 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
         setScrollPosition(0);
     }
 
-    const handleCardClick = (id:string) => { // This is will open
+    const handleCardClick = (id:number) => { // This is will open
         // This code will use the already fetch once in the database part which was saved and reuse it her on the client
         researches.map((research)=> {
             if (research.id === id) {
@@ -44,17 +43,16 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
         // handle to get the id of what is clicked
     } 
 
-    async function fetchResearch() {
-        const result = await getResearch();
-        setResearches(result);
-
-        //this part is to set the content width since it need to get the ref only when all the research is rendered
-        if (contentRef.current) {
-            setContentWidth(contentRef.current.scrollWidth);
-        }
-    }
-
     useEffect(()=> {
+        async function fetchResearch() {
+            const data = await getPosts()
+            setResearches(data);
+    
+            //this part is to set the content width since it need to get the ref only when all the research is rendered
+            if (contentRef.current) {
+                setContentWidth(contentRef.current.scrollWidth);
+            }
+        }
          // This is for fethcing the research part 
         fetchResearch();
 
@@ -102,10 +100,10 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
                 {researches.map((research:ResearchType)=> { 
                     return (
                         <ResearchCard
+                        key={research.id}
                         handleCardClick={handleCardClick}
                         research={research}
                         />
-                        
                     )
                 })}
             </section>  

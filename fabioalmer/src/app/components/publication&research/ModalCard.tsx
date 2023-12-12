@@ -15,13 +15,11 @@ export type ModalCardPropType = {
     researchTitle : string,
     researchSummary : string,
     researchImage : string,
-    researchId : string
+    researchId : number
 }
 
 
 export default function ModalCard() {
-
-    const [researches,setResearches] = useState<ResearchType[]>([])
 
     const [isOpenModal,setOpenModal] = useState(false)
     const [modalResearch,setModalResearch] = useState<ModalCardPropType>(
@@ -30,7 +28,7 @@ export default function ModalCard() {
         researchTitle : "",
         researchSummary : "",
         researchImage : "",
-        researchId:""
+        researchId: 0
 
     })
 

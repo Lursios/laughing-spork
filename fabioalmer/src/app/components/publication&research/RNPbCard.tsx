@@ -5,7 +5,7 @@ import parser, {Element} from "html-react-parser"
 
 type ResearchCardProp = {
     research :ResearchType,
-    handleCardClick : (id:string) => void
+    handleCardClick : (id:number) => void
 }
 
 export default function ResearchCard({research, handleCardClick}:ResearchCardProp) {
@@ -29,7 +29,7 @@ export default function ResearchCard({research, handleCardClick}:ResearchCardPro
 
 type ResearchCardPostProp = {
     research :ResearchType,
-    handleCardClick : (id:string) => void
+    handleCardClick : (id:number) => void
     type : boolean
 }
 

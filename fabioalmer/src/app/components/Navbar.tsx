@@ -23,3 +23,16 @@ export function PostNavbar(){
 
     )
 }
+
+export function PostManagerNavbar(){
+    return (
+        <div className={` flex flex-row justify-between text-2xl mt-16 mb-11 ${fasterOne.className}`}>
+            <Link href={"/publication&research"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Back to Homepage </Link>
+            <Link href={"/postManager/createPost"} className="hover:bg-white p-2 rounded-xl"> Create A Post </Link>
+            <Link href={"/postManager/updatePost"} className="hover:bg-white p-2 rounded-xl"> Update a Post</Link>
+            <Link href={"/postManager/readPosts"} className="hover:bg-white p-2 rounded-xl"> Posts </Link>
+            <Link href={"/postManager"} className="hover:bg-white p-2 rounded-l-xl"> Heartbreak Annivesary</Link>
+        </div>
+
+    )
+}
