@@ -1,15 +1,24 @@
 import ModalCard from "@/app/components/publication&research/ModalCard";
 import { getPosts } from "../api/ResearchHandler";
+import ResearchCards from "@/app/components/publication&research/ResearchCards";
+import HeaderRNPB from "@/app/components/publication&research/HeaderRNPb";
 
 
 export default async function PublicationResearch() {
-    // we need to get the list of required documents data for our card component
+    const data = await getPosts()
+    
     return (
-
-        <div className="w-4/5 mx-auto p-30 bg-red-300 overflow-y-hidden">
-            <ModalCard
+        <div className={`flex flex-col md:flex-row items-center justify-center w-screen lg:w-full h-full p-[5px] text-white text-base md:text-5xl gap-7 font-extrabold`}>
+            <HeaderRNPB/>
+            <ResearchCards
+                research={data}
             />
         </div>
+        // <div className=" bg-red-300">
+        //     <ResearchCards/>
+        //     {/* <ModalCard
+        //     /> */}
+        // </div>
 
     )
 }

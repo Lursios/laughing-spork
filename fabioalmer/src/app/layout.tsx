@@ -1,9 +1,8 @@
 "use client"
 import { crimsonText } from './fonts';
+import 'react-tooltip/dist/react-tooltip.css'
 import './globals.css'
 import '@fontsource/crimson-text';
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
 import { usePathname } from 'next/navigation';
 
 

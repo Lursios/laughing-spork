@@ -19,14 +19,20 @@ const config: Config = {
       },
 
       animation: {
-        "run": "run 30s linear infinite"
+        "slide-left": "slide-left 1s 1 var(--easing) both"
       },
 
       keyframes : {
-        "run": {
-            "0%":{left: "0", transform :"translate-x-0"},
-            "100%" : {left:"100%", transform : "-translate-x-full" }
+        "slide-left": {
+          from: {transform: "translateX(-100vw)"},
+          to: {transform:"none"}
+
         }
+      },
+      fontFamily: {
+        montserrat:['Montserrat', 'sans-serif'],
+        inter:['Inter','libre'],
+        // crimsonText :['var(--crimson-font)', 'sans-serif']
       }
     },
   },

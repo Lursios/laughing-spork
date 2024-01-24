@@ -59,9 +59,9 @@ export default function ModalCard() {
         handleOpenModal={openModal}
         />
         <Modal
-        isOpen = {isOpenModal}    
-        contentLabel="Tester"
-        style={customStyles}
+            isOpen = {isOpenModal}    
+            contentLabel="Tester"
+            style={customStyles}
         >
 
         <div className="flex flex-col items-center justify-center flex-shrink-0 w-[599px] h-[566px] rounded-xl bg-black">

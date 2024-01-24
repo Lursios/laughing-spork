@@ -1,16 +1,29 @@
 "use server"
 import { PostValidationSchema } from "@/app/(posts)/postManager/createPost/page";
 import axios from "axios";
-import { createPost } from "./ResearchHandler";
+import { createPost, updatePosts } from "./ResearchHandler";
 
 
-// type handlePostSubmissionProps = {
-//     data : PostValidationSchema
-// }
+export async function handlePostUpdate(data:PostValidationSchema,postId:number) {
+    // process the data so it can be submitted to the db 
+    const updatedImage = await handleImageUploader(data.image)
+    const type = data.postype.map((postype)=> postype.value).toString();
+    // 2. the pass data datatype on the update post function is a createResearchType
+     const newData = {...data,postype:type,id:postId,image:updatedImage.secure_url}
+    // 2.1 add the id inside the datatype then we pass the process data
+    const updateResult = await updatePosts(newData);
+
+    if (updateResult) {
+
+        return {updateResult}
+
+    } else {
+        console.log("error when updating to db")
+    }
+}
+
 
 export default async function handlePostSubmission(data:PostValidationSchema) {    
-    // processing and saving the data into the database
-    // 1 Processing which is to change the image as a cloudinary url
     const image = await handleImageUploader(data.image);
     const type = data.postype.map((postype)=> postype.value).toString();
 
@@ -19,7 +32,7 @@ export default async function handlePostSubmission(data:PostValidationSchema) {
         const result = await createPost({...data,postype:type})
         return result
     } else {
-        return "something happened"
+        return "error when uploading image to cloudinary"
     }       
 }
 
@@ -28,7 +41,10 @@ async function handleImageUploader(imageData:string) {
 
     if (imageData.includes('https://res.cloudinary.com/')) {
         // since it's already a link then we don't need to create one in case of update more or less
-        return imageData
+        return {
+            statusText: "OK",
+            data:{secure_url:imageData}
+        }
 
     } else {
         const key = process.env.CLOUDINARY_API_KEY!

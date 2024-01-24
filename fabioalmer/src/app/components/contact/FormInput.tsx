@@ -56,7 +56,6 @@ export default function FormInput(){
     const { 
         register,
         handleSubmit,
-        watch,
         control,
         reset,
         formState:{errors,isValid,isDirty,isSubmitSuccessful} // is valid & dirty renders the button once it can be submitted , is submitsuccessfull return a boolean value if the submit is a success 
@@ -72,7 +71,7 @@ export default function FormInput(){
             alert(newData)
 
             // server side for handling the user inputs which sends to the inputed email address and the owner
-            emailHandler(data) 
+            // emailHandler(data) 
         }
     }
     useEffect(()=> {
@@ -86,24 +85,24 @@ export default function FormInput(){
 
     return (
 
-        <form className="flex flex-row flex-grow " onSubmit={handleSubmit(onSubmit)}>
-
-            <div className="flex flex-col flex-grow bg-[#E6C187] border-y-2 border-black border-fill">
-                <div className="flex flex-col mx-7 mt-7 mb-3">
+        <form className="flex flex-col md:flex-row w-4/5 items-center h-fit mb-20 lg:mb-0 my-7 mx-7 gap-7" onSubmit={handleSubmit(onSubmit)}>
+            {/* this part should be map instead */}
+            <div className="flex flex-col w-full  gap-7"> 
+                <div className="flex flex-col ">
                     <label className="font-bold">First Name</label>
                     <input className={`border-fill border-2 border-black ${errors.firstName?.message?"bg-red-300":"bg-white"}`} placeholder="" {...register("firstName")}></input>
                     <input type="hidden" {...register("sugar")}></input>  {/* This is the honey pot form for bot checker */}
                 </div>
-                <div className="flex flex-col mx-7 my-4">  
+                <div className="flex flex-col ">  
                     <label className="font-bold">Last Name</label>
                     <input className={`border-fill border-2 border-black ${errors.lastName?.message?"bg-red-300":"bg-white"}`} placeholder="" {...register("lastName")}></input>
                 </div>
-                <div className="flex flex-col mx-7 my-4">
+                <div className="flex flex-col">
                     <label className="font-bold">Email Address</label>
                     <input className={`border-fill border-2 border-black ${errors.email?.message?"bg-red-300":"bg-white"}`} placeholder="" {...register("email")}></input>
                 </div>
-                <div className="flex flex-col mx-7 my-4 ">
-                    <label className="font-bold"> Phone Number</label>
+                <div className="flex flex-col ">
+                    <label className="font-bold">Phone Number</label>
                     <Controller
                         render={({field})=> (
                             <PhoneInput
@@ -117,39 +116,39 @@ export default function FormInput(){
                         defaultValue=""
                     />
                 </div>
-                <div className="flex flex-col mx-7 mt-4 mb-7">
+                <div className="flex flex-col">
                     <label className="font-bold">Purpose of Email</label>
                     <input className={`border-fill border-2 border-black ${errors.purposeOfEmail?.message?"bg-red-300":"bg-white"}`} placeholder="" {...register("purposeOfEmail")}></input>
                 </div>
-
             </div>
-            <div className="flex flex-col w-7/12 bg-[#E6C187] border-2 border-black border-fill rounded-r-2xl">
-                    <div className="flex flex-col mx-7 pr-28 my-7">
-                        <label className="font-bold">Subject Email</label> {/*This part we need to change into react select */}
-                        <Controller
-                            render={({field})=> (
-                                <ReactSelect
-                                {...field}
-                                options={subjectEmailOptions}
-                                isClearable
-                                styles={{
-                                    control :(baseStyles,state) => ({
-                                        ...baseStyles,
-                                        backgroundColor : errors.emailSubject?.message? "#FCA5A5": "white",
-                                        borderColor: "black",
-                                        borderWidth: "2px",
-                                    })
-                                }}
-                                />
-                        )}
-                        name="emailSubject"
-                        control={control}
-                        defaultValue={{value:"", label:""}}
-                        />
-                    </div>
-                    <textarea className={`mx-7 mb-1 w-[385px] h-[253px] ${errors.emailMessage?.message?"bg-red-300":"bg-black"} text-white rounded-xl p-3`} placeholder="Write your message here" {...register("emailMessage")}></textarea>
-                    
-                <div className="flex flex-col flex-grow items-center justify-center">
+            <div className="flex flex-col w-full  md:w-[100%] gap-7">
+                <div className="flex flex-col">
+                    <label className="font-bold">Subject Email</label> {/*This part we need to change into react select Remove Others and add a custom field type */}
+                    <Controller
+                        render={({field})=> (
+                            <ReactSelect
+                            {...field}
+                            options={subjectEmailOptions}
+                            isClearable
+                            styles={{
+                                control :(baseStyles,state) => ({
+                                    ...baseStyles,
+                                    backgroundColor : errors.emailSubject?.message? "#FCA5A5": "white",
+                                    borderColor: "black",
+                                    borderWidth: "2px",
+                                    color:"red"
+                                })
+                            }}
+                            />
+                    )}
+                    name="emailSubject"
+                    control={control}
+                    defaultValue={{value:"", label:""}}
+                    />
+                </div>
+                <textarea className={`max-h-36 ${errors.emailMessage?.message?"bg-red-300":"bg-white"} text-black rounded-xl p-3`} placeholder="Write your message here" {...register("emailMessage")}></textarea>
+                
+                <div className="flex flex-col items-center gap-3 ">
                     <Recaptcha
                     statusUpdate= {handleVerified}
                     resetCaptcha = {resetCaptcha}

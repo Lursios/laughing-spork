@@ -3,7 +3,7 @@ import { ResearchType } from "@/app/(portfolio)/api/ResearchHandler";
 import TextEditor from "@/app/components/articlePosts/TextEditor";
 import {Editor} from "@tinymce/tinymce-react";
 import { useEffect, useRef, useState } from "react";
-import PostInput, { PostInputImage,PostInputSummary,PostInputTest,PostInputType } from "@/app/components/articlePosts/PostInputs";
+import { PostInputImage,PostInputSummary,PostInput,PostInputType } from "@/app/components/articlePosts/PostInputs";
 import {useForm,Controller, FormProvider, set} from "react-hook-form";
 import { custom, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -91,10 +91,10 @@ export default function CreatePost(){
 
                   <div className="flex flex-row mb-20">
                     <div className="flex flex-col">
-                        <PostInputTest  label="Title" register={methods.register} />
-                        <PostInputTest  label="Authors" register={methods.register} />
-                        <PostInputTest  label="Link" register={methods.register} />
-                        <PostInputTest  label="Publisher" register={methods.register} />
+                        <PostInput  label="Title" register={methods.register} />
+                        <PostInput  label="Authors" register={methods.register} />
+                        <PostInput  label="Link" register={methods.register} />
+                        <PostInput  label="Publisher" register={methods.register} />
                         <PostInputType styleError={false} label="Postype" control={methods.control}/>
                         <PostInputImage handleFileInput={onFileInput} register={methods.register}/>
                         <PbButton type="button" handleClick={confirmCardData} name="Confirm Data"/>

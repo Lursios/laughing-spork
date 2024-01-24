@@ -1,11 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Libre+Baskerville&family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inter:wght@300&family=Libre+Baskerville&family=Montserrat:wght@300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --duration: 500ms;
+  --duration-long : 3s;
+  --easing : cubic-bezier(0.5, 0, 0.5, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,12 +35,120 @@
 }
 
 body {
+  display: flex;
   color: black;
-  background-color: #B83011ff; 
+  background-color: white; 
+  width:100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
 }
 
 .magic-navbar {
   background-color: red;
+}
+
+.slide-in {
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  transform-origin: bottom;
+}
+
+.slide-out {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  transform-origin: top;
+}
+
+
+.cv  {
+  transition-property: background-color, border-color,all ;
+  transition-duration: var(--duration);
+  transition-timing-function: var(--easing);
+  transition-delay: 0, var(--duration);
+  cursor:pointer;
+
+  &:hover {
+    border-color: rgb(6, 198, 6);
+    background-color: rgb(6, 198, 6);
+    font-weight: 800;
+    transform: scale(1.1); 
+  }
+}
+
+/* .ball { 
+  position: relative;
+  bottom: 50%;
+  height: 10%;
+  width: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at bottom right,red,yellow);
+  transition-property: background, transform;
+  transition-duration: 500ms, 1s;
+  transition-timing-function: linear,var(--easing);  
+
+  &:hover {
+    background: blue;
+    transform: scale(2) ;
+    transform: translateY(10vw);
+  }
+} */
+
+
+.animation-front-flip {
+  animation-name: front-flip;
+  animation-duration: var(--duration-long);
+  animation-timing-function: var(--easing);
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+
+.scale-effect {
+  transition-duration: var(--duration);
+  transition-timing-function: var(--easing);
+  transition-property: all;
+
+  &:hover{
+    transform: scale(1.1);
+    background-color: red;
+    color: red;
+  }
+  
+}
+
+@keyframes front-flip {
+  from {
+    transform: translateX(50vw);
+  }
+  25% {
+    transform: translateX(37.5vw) translateY(-10vw);
+  }
+  50% {
+    transform: translateX(25vw) translateY(0);
+  }
+  75% {
+    transform: translateX(12.5vw) translateY(-20vw) rotate(270deg); 
+  }
+  90% {
+    transform: translateX(6.25) translateY(-10vw) rotate(315deg) ;
+  }
+  to {
+    transform: translateX(0) rotate(360deg);
+  }
 }
 
 

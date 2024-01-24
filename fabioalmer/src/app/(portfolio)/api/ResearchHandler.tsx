@@ -1,6 +1,21 @@
 "use server"
 import prisma from "../../../../prisma/prisma";
 
+export async function updatePosts(data:FetchResearchType) {
+    try {
+        const result = await prisma.posts.update({
+            where:{
+                id:data.id
+            },
+
+            data:data
+        })
+        return result
+
+    } catch (error) {
+        return {error}
+    }
+}
 
 export async function getPosts() {
     try {
@@ -14,7 +29,8 @@ export async function getPosts() {
                 authors:true,
                 image:true,
                 summary:true,
-                content:true     
+                content:true,
+                postype:true     
             }
         });
         return researches
@@ -34,7 +50,7 @@ export async function createPost(postData:CreateResearchType){
                 image:postData.image,
                 summary:postData.summary,
                 content:postData.content,
-                type:postData.postype
+                postype:postData.postype
             }
         })
 
@@ -68,6 +84,18 @@ export async function getPostById(postId:number){
         return {error}
     }
 }
+
+export type FetchResearchType = {
+    id:number,
+    title : string,
+    link : string, // doi
+    publisher : string,
+    authors : string,
+    image : string, //this the url to our save storage or something lah
+    summary : string,
+    content : string,
+    postype : string
+}   
 
 
 export type CreateResearchType = {

@@ -29,7 +29,6 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
         researches.map((research)=> {
             if (research.id === id) {
                 const modalCard :ModalCardPropType = {
-
                     researchPageRoute : research.link,
                     researchTitle : research.title,
                     researchSummary : research.summary,
@@ -76,49 +75,52 @@ export default function ResearchCards({handleOpenModal}:ResearchCardsProp) {
     },[scrollPosition,contentWidth])
 
     return (
-        <div ref={contentRef} className="flex flex-row flex-grow bg-red-700" style={{ transform: `translateX(${-scrollPosition}px)`}}>
+        <div ref={contentRef} className="flex flex-col bg-red-300" style={{ transform: `translateX(${-scrollPosition}px)`}}>
             <section className="flex flex-col flex-shrink-0 w-2/5 px-16 pt-20"> {/* This is the section for the Discover Name  */}
-                <h1 className="text-5xl font-extrabold text-white pb-10">Discover the Life and Work of Fabio Almer Agoes</h1>
+                <h1 className="text-base font-extrabold text-white pb-10">Discover the Life and Work of Fabio Almer Agoes</h1>
                 <Link href={"/contact"}>
                 <TextWithArrow
-                text="Collaborate on a research now !"
+                    text="Collaborate on a research now !"
                 />
                 </Link>
                 <TextWithArrow
-                text="Lorem Ipsum working with me is ipsum "
+                    text="Lorem Ipsum working with me is ipsum "
                 />
                 <TextWithArrow
-                text="Lorem Ipsum working with me is ipsum asdfasdfasdfsadfasd "
+                    text="Lorem Ipsum working with me is ipsum asdfasdfasdfsadfasd "
                 />
                 <TextWithArrow
-                text="Lorem Ipsum working with me is ipsum asdfasdfasdfsadfasd Lorem Ipsum working with me is ipsum asdfasdfasdfsadfasd "
+                    text="Lorem Ipsum working with me is ipsum asdfasdfasdfsadfasd Lorem Ipsum working with me is ipsum asdfasdfasdfsadfasd "
                 />                                
 
             </section>
-
-            <section className="flex flex-row bg-black pr-10"> {/* This is the section for the research card */}
-                {researches.map((research:ResearchType)=> { 
-                    return (
-                        <ResearchCard
-                        key={research.id}
-                        handleCardClick={handleCardClick}
-                        research={research}
-                        />
-                    )
-                })}
-            </section>  
-
-            <section className="flex flex-col flex-shrink-0 w-2/5 px-16 pt-20 bg-white items-center"> {/* This is the section for the Thank you  */}
-                <h1 className="text-5xl font-extrabold text-black pb-10">You've reached The End of My Research ! Thank you for Visiting</h1>
-                <PbButton
-                handleClick = {handleClick}
-                name="Back to Home"
-                type= "button"
-                />
-            </section>      
+            <h1>Where the research card goes</h1>
+            <h1>Where The End Of The Slide Will Be</h1>
+    
         </div>
 
 
         
     )
 }
+
+
+// {/* <section className="flex flex-row bg-black pr-10"> {/* This is the section for the research card */}
+// {researches.map((research:ResearchType)=> { 
+//     return (
+//         <ResearchCard
+//         key={research.id}
+//         handleCardClick={handleCardClick}
+//         research={research}
+//         />
+//     )
+// })}
+// </section>   */}
+// {/* <section className="flex flex-col flex-shrink-0 w-2/5 px-16 pt-20 bg-white items-center"> {/* This is the section for the Thank you  */}
+//     <h1 className="text-5xl font-extrabold text-black pb-10">You've reached The End of My Research ! Thank you for Visiting</h1>
+//     <PbButton
+//         handleClick = {handleClick}
+//         name="Back to Home"
+//         type= "button"
+//         />
+// </section>   */}
