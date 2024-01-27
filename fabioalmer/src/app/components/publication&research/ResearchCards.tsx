@@ -1,8 +1,7 @@
 "use client"
 import ResearchCard from "./RNPbCard";
 import { FetchResearchType } from "@/app/(portfolio)/api/ResearchHandler";
-import useScrollPosition from "@/app/hooks/useScrollPosition";
-import useWindowDimension from "@/app/hooks/useWindowDimensions";
+
 
 
 
@@ -11,12 +10,6 @@ type ResearchCardsPropType = {
     research : FetchResearchType[];
 }
 const ResearchCards = ({research}:ResearchCardsPropType)=> {
-    const {isMobileScreen} = useWindowDimension();
-    const {scrollPosition,contentRef} = useScrollPosition(); 
-
-    const handleClick = (id:number)=> {
-        console.log(id)
-    }
 
     return (
         <div className="flex md:items-center items-start justify-start md:justify-center w-full md:h-full">
@@ -25,7 +18,6 @@ const ResearchCards = ({research}:ResearchCardsPropType)=> {
                         <div key={`researchCard-${research.id}`} className="carousel-item scale-[.8] justify-start items-center md:scale-90 lg:scale-[.9] md:h-[100%]">      
                             <ResearchCard
                                 research={research}
-                                handleCardClick={handleClick}
                             />
                         </div>
                     ))}
