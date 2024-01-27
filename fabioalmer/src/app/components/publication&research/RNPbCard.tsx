@@ -2,14 +2,13 @@
 import { ResearchType } from "@/app/(portfolio)/api/ResearchHandler";
 import { titleStyle } from "@/app/fonts";
 import { useState } from "react";
-import ModalCardPreview from "@/app/(portfolio)/othersStuff/page";
+import ModalCardPreview from "./ModalCard";
 
 type ResearchCardProp = {
     research :ResearchType,
-    handleCardClick : (id:number) => void
 }
 
-export default function ResearchCard({research, handleCardClick}:ResearchCardProp) {
+export default function ResearchCard({research}:ResearchCardProp) {
     
     const [isHover,setIsHover] = useState(false);
     const [showPreviewIcon,setShowPreviewIcon] = useState(false);

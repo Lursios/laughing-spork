@@ -1,4 +1,3 @@
-import ModalCard from "@/app/components/publication&research/ModalCard";
 import { getPosts } from "../api/ResearchHandler";
 import ResearchCards from "@/app/components/publication&research/ResearchCards";
 import HeaderRNPB from "@/app/components/publication&research/HeaderRNPb";
