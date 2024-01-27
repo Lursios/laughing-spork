@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Layout({children}: {children:React.ReactNode}) {
 
     return (
-    <div className= "flex mx-auto w-screen h-screen flex-col bg-blue-300 md:flex-row items-center">
+    <div className= "flex mx-auto w-screen h-screen flex-col md:flex-row items-center">
         <Navbar/>
           <PageTransition
             children= {children}

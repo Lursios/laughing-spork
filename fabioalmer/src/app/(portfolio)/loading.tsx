@@ -9,3 +9,13 @@ export default function Loading() {
     
     )
   }
+
+
+const ImageLoader = ()=> {
+  return (
+    <div>Please Wait While The Image Is Loading</div>
+  )
+}
+
+
+export {ImageLoader};

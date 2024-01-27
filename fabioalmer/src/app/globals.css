@@ -17,6 +17,34 @@
 }
 }
 
+
+.shadow-card {
+
+  transition-property: box-shadow;
+  transition-duration: var(--duration);
+  transition-timing-function: var(--easing);
+
+  &:hover {
+    box-shadow: 8px 10px black;
+  }
+}
+
+@layer utilities {
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: gold;
+    border-radius: 9999px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    border-radius: 9999px;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -111,6 +139,7 @@ body {
   animation-iteration-count: 1;
   animation-fill-mode: both;
 
+
   &:hover {
     animation-play-state: paused;
   }
@@ -130,7 +159,7 @@ body {
   
 }
 
-@keyframes front-flip {
+/* @keyframes front-flip {
   from {
     transform: translateX(50vw);
   }
@@ -150,5 +179,15 @@ body {
     transform: translateX(0) rotate(360deg);
   }
 }
+
+@keyframes card-preview {
+  from {
+    transform: translateY(100vh);
+  }
+
+  to {
+    transform: none;
+  }
+} */
 
 

@@ -9,13 +9,18 @@ export default function Footer() {
     const location = usePathname()
     const {isMobileScreen} = useWindowDimension()
 
+    const footerFor = {
+        "/whoami" : true,
+        "/publication&research" : true,
+    }
+
     return (
-        <div className="w-auto m-20">
-            {((location ==="/whoami"||location ==="/publication&research") && !isMobileScreen ) && 
-            <div className="flex flex-col w-fit text-3xl font-extrabold font-montserrat gap-5 text-center items-center justify-center ">
-                <h1>Scroll Down</h1>
+        <div className="w-auto m-20 ">
+            {((location in footerFor) && !isMobileScreen ) && 
+            <div className="flex flex-col w-fit text-2xl font-extrabold font-montserrat gap-5 text-center items-center justify-center ">
+                <h1> {location === "/publication&research" && "Shift + "}Scroll Down</h1>
                 <FaArrowDownLong
-                    size={"3.5rem"}
+                    size={"2.5rem"}
                     className="animate-bounce"
                 />
             </div>

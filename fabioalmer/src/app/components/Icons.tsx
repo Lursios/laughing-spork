@@ -32,3 +32,9 @@ export default function Icons({spotifyClick}:IconsProps) {
         </div>
     )
 }
+
+const limitText = (text:string)=> {
+    if (text.length > 200) {
+        return text
+    }
+}

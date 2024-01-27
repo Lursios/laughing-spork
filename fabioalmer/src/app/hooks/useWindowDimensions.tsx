@@ -3,7 +3,7 @@ import { useState,useEffect} from "react"
 
 
 export type WindowDimensions = {
-    screenWidth: number,
+    screenWidth: number |undefined,
     isMobileScreen: boolean;
     limitReviews:number;
   };
@@ -11,10 +11,12 @@ export type WindowDimensions = {
 export default function useWindowDimension():WindowDimensions {
 
     function avatarLimit() {
-        return Math.floor(screenWidth/16) //16 is the width of the circle Avatar
+        if (screenWidth) {
+            return Math.floor(screenWidth/16) //16 is the width of the circle Avatar
+        }
     }
 
-    const [screenWidth, setScreenWidth] = useState(1024)
+    const [screenWidth, setScreenWidth] = useState<number|undefined>(undefined)
     const [isMobileScreen,setIsMobileScreen ]= useState<boolean>(false) // this for checking is it a mobile screen witdth or nah
     const [limitReviews,setLimitReviews] = useState<number>(1024/64) 
     
@@ -25,7 +27,7 @@ export default function useWindowDimension():WindowDimensions {
         function handleResize(){
             setScreenWidth(window.innerWidth);
             setLimitReviews(Math.floor(window.innerWidth/64))
-            if(screen.width <= 768) {
+            if(screen.width < 1024) {
                 setIsMobileScreen(true)
             } else {
                 setIsMobileScreen(false)
