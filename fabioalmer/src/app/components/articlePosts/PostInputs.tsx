@@ -1,7 +1,6 @@
 import React,{useCallback, useState} from "react";
 import {useDropzone} from "react-dropzone"
 import { FaUpload } from "@react-icons/all-files/fa/FaUpload";
-import { GroupBase } from "react-select"
 import { Controller } from "react-hook-form";
 import makeAnimated from "react-select/animated"
 import ReactSelect from "react-select/creatable"
@@ -15,7 +14,7 @@ type PostInputProps = {
 }
 
 
-export const PostInputTest = (({label,register}:PostInputProps)=> {
+export const PostInput = (({label,register}:PostInputProps)=> {
     return (
         <div className="flex flex-col mr-[200px]">  
             <label className="font-bold text-black text-base">{label}</label>
@@ -24,14 +23,6 @@ export const PostInputTest = (({label,register}:PostInputProps)=> {
     )
 })
 
-export default function PostInput({label}:PostInputProps) {
-    return (
-        <div className="flex flex-col mr-[200px]">  
-            <label className="font-bold text-black text-base">{label}</label>
-            <input className={`border-solid border-2 w-[364px] h-7 mb-8 border-black bg-white`} placeholder={""}></input>
-        </div>
-    )
-}
 
 export type PostInputImageProps = {
     register :any,
@@ -173,7 +164,7 @@ export function PostInputSummary({label,control,handleButtonOneClick,handleButto
             <textarea defaultValue={""} onKeyUp={onKeyDown} className="mx-1 outline outline-black outline-1 focus:outline-2 h-32 focus:outline-emerald-500  bg-white" {...control.register(label.toLowerCase())}/>
             <div className="flex flex-row mx-1 "> 
                 <div className="flex flex-row my-6 space-x-4 w-8/12">
-                    <PbButton name="Save Data" type="submit" handleClick = {()=>console.log("clicked")}/>
+                    <PbButton name="Save Data" type="submit" handleClick = {()=> console.log("clicked")}/>
                     <PbButton name="Generate Summary" type="button" handleClick = {handleButtonOneClick}/>
                 </div>
                 <div className="flex justify-end items-end my-6 grow">

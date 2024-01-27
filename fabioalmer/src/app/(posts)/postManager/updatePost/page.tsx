@@ -1,19 +1,17 @@
 "use client"
-import { ResearchType } from "@/app/(portfolio)/api/ResearchHandler";
+import { CreateResearchType, FetchResearchType, ResearchType, getPosts } from "@/app/(portfolio)/api/ResearchHandler";
 import TextEditor from "@/app/components/articlePosts/TextEditor";
-import {Editor} from "@tinymce/tinymce-react";
-import { useRef, useState } from "react";
-import PostInput, { PostInputImage,PostInputSummary,PostInputTest,PostInputType } from "@/app/components/articlePosts/PostInputs";
+import { useEffect, useRef, useState } from "react";
+import { PostInputImage,PostInputSummary,PostInput,PostInputType } from "@/app/components/articlePosts/PostInputs";
 import {useForm,Controller, FormProvider, set} from "react-hook-form";
 import { custom, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ResearchCardPost } from "@/app/components/publication&research/RNPbCard";
 import PbButton from "@/app/components/publication&research/PbButton";
-import handlePostSubmission from "@/app/(portfolio)/api/PostHandler";
+import handlePostSubmission, { handlePostUpdate } from "@/app/(portfolio)/api/PostHandler";
+import Select from "react-select";
+import _ from "lodash"
 
-
-
-const noHttpOrSlash = new RegExp("/^(?!.*https|\/).+$/") ; // this is the pattern matching so that it can't contain https or "/\" ( got it from chatGpt ) didn't work need to update
 
 const postType = z.object({
   value:z.string(),
@@ -33,31 +31,38 @@ const postValidationSchema = z.object({
 
 export type PostValidationSchema = z.infer<typeof postValidationSchema>
 
-export default function UpdatePost(){
+export default function CreatePost(){
 
-    const [typeAction,setTypeAction] = useState<string>("create");
+
+    const exampleValues = {
+
+      title : "Here Lies The title",
+      link : "www.porhub.com", // doi
+      publisher : "OVO Sound",
+      authors : "Lil Wayne, Drake, Kali Uchis",
+      image : "https://res.cloudinary.com/dz1i63qzt/image/upload/v1701710133/IsoDefaultImage.png", //this the url to our save storage or something lah
+      summary : "Click Generate Summary if you're lazy enough to do it",
+      content : "Tell your story here :) ",
+      postype:[{value:"publication",label:"Publication"},{value:"Research",label:"Research"}],
+
+  }
+
     const [isHidden,setHidden] = useState<boolean>(true)
     const [isDark,setDark] = useState<boolean>(true)
+    const [posts,setPosts] = useState<FetchResearchType[]>([])
+    const [updateOptions,setUpdateOptions ]= useState([])
+    const postId = useRef(0)
+    const [usedPost,setUsedPost] = useState<PostValidationSchema>(exampleValues)
   
-    const methods = useForm<PostValidationSchema>({resolver:zodResolver(postValidationSchema),
-      defaultValues:{
-        title : "Just to test on the functionality making sure",
-        link : "test", // doi
-        publisher : "test",
-        authors : "test",
-        image : "https://res.cloudinary.com/dz1i63qzt/image/upload/v1701710133/IsoDefaultImage.png", //this the url to our save storage or something lah
-        summary : "test",
-        content : "This is the content fetch data",
-        postype:[{value:"publication",label:"publication"},{value:"publication",label:"publication"}],
+    const methods = useForm<PostValidationSchema>({resolver:zodResolver(postValidationSchema),defaultValues:usedPost})
 
-    }})
-
-    const {handleSubmit,watch,setValue} = methods
+    const {handleSubmit,watch,setValue,reset,formState:{isSubmitSuccessful}} = methods
     const researchData = watch();
 
     const onSubmit = async (data:PostValidationSchema)=> {
-      const result = await handlePostSubmission(data); //This is equivalent of sending a POST request to our api route
-      console.log(result)
+      const result = await handlePostUpdate(data,postId.current); //This is equivalent of sending a POST request to our api route
+      
+      console.log("result :",result?result.updateResult:"error")  
     }
 
     const confirmCardData = ()=> {
@@ -70,36 +75,85 @@ export default function UpdatePost(){
 
     const onFileInput = (label:any,file:any)=> {
       setValue(label,file);
-      console.log("value has been set")
     }
+
+    const handleChange = (chosenOption:any)=> {
+      const selectedValue = chosenOption.value; // chosen title to update
+      console.log(selectedValue);
+      const data = posts.find((post)=> {
+        return post.title === selectedValue //will return the correct data based on the title 
+      })
+      
+      if (data) {
+        const convertedPostype = data.postype.split(",").map((type:string)=> {return {value:type, label:type}});
+        setUsedPost({...data,postype:convertedPostype}) // we update the state with the correct type;
+        postId.current = data.id;
+      } else {
+        console.log("data aint there")
+      }
+
+    }
+
+    useEffect(()=> { // execute when submitted
+      if (isSubmitSuccessful){
+        setPosts([])
+        setUsedPost(exampleValues)
+        setUpdateOptions([])
+        postId.current = 0
+
+
+      }
+      
+    },[isSubmitSuccessful])
+
+    useEffect(()=> { //reset when the default value is change
+      if (usedPost) {
+        reset(usedPost)
+      }
+
+    },[usedPost])
+
+    useEffect(()=> { // fetching data
+      const fetchPosts = async ()=> {
+        const fetchedPosts = await getPosts();
+        const postOptions = fetchedPosts.map((post:CreateResearchType)=> {return {value:post.title,label:post.title}})
+        setUpdateOptions(postOptions);
+        setPosts(fetchedPosts);
+      }
+
+      fetchPosts().catch((e)=> {
+        console.error(e)
+      })
+      console.log("i was triggered")
+    },[isSubmitSuccessful])
         
     return (
         <>
           <div className="flex flex-col ml-36 mt-10 mb-5 w-fit ">
-            <h1 className="text-2xl text-extrabold text-white ">{typeAction =="create"?`${typeAction.toUpperCase()} A NEW POST`:`${typeAction.toUpperCase()} A POST`}</h1>
-            <p className="text-base text-bold text-green-300">Please Fill The Form as Needed</p>
+            <h1 className="text-2xl text-extrabold text-white ">UPDATE A POST</h1>
+            <p className="text-base text-bold text-yellow-500">Please Select First Before Filling The Form</p>
+            <Select options={updateOptions} defaultInputValue="" className="w-[364px] my-2" onChange={handleChange} />
           </div>
             <FormProvider {...methods}>
               <form className="flex flex-col ml-36 mr-40" onSubmit={handleSubmit(onSubmit)} >  
 
-                  <div className="flex flex-row">
-                    <div className="flex flex-col my-20">
-                        <PostInputTest  label="Title" register={methods.register} />
-                        <PostInputTest  label="Authors" register={methods.register} />
-                        <PostInputTest  label="Link" register={methods.register} />
-                        <PostInputTest  label="Publisher" register={methods.register} />
+                  <div className="flex flex-row mb-20">
+                    <div className="flex flex-col">
+                        <PostInput  label="Title" register={methods.register} />
+                        <PostInput  label="Authors" register={methods.register} />
+                        <PostInput  label="Link" register={methods.register} />
+                        <PostInput  label="Publisher" register={methods.register} />
                         <PostInputType styleError={false} label="Postype" control={methods.control}/>
                         <PostInputImage handleFileInput={onFileInput} register={methods.register}/>
                         <PbButton type="button" handleClick={confirmCardData} name="Confirm Data"/>
                     </div>
 
-                    <div className="flex flex-col justify-center items-center space-y-4 h-fit my-20 ml-10">
+                    <div className="flex flex-col justify-center items-center space-y-4 h-fit ml-10">
                       <ResearchCardPost
-                      handleCardClick={()=>console.log("clicked")}
+                      handleCardClick={()=>setDark(!isDark)}
                       research={{...researchData,id:0}}
                       type = {isDark}
                       />
-                      <PbButton type="button" name={isDark?"Turn White": "Turn Dark"} handleClick={()=>setDark(!isDark)}/>
                     </div>     
                   </div>
 
@@ -115,7 +169,6 @@ export default function UpdatePost(){
                     handleButtonOneClick= {()=> {console.log("generate summary")}}
                     handleButtonTwoClick = {cancelCardData}
                     />
-                       
                   </div>
 
               </form>

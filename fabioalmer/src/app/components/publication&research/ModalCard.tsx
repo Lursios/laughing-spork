@@ -6,7 +6,6 @@ import {FaArrowRight} from "@react-icons/all-files/fa/FaArrowRight"
 import {FaArrowLeft} from "@react-icons/all-files/fa/FaArrowLeft"
 import { IoCloseCircleSharp } from "@react-icons/all-files/io5/IoCloseCircleSharp"
 import ResearchCards from "./RNPbCards"
-import { ResearchType } from "@/app/(portfolio)/api/ResearchHandler"
 
 Modal.setAppElement("body");
 
@@ -28,7 +27,7 @@ export default function ModalCard() {
         researchTitle : "",
         researchSummary : "",
         researchImage : "",
-        researchId: 0
+        researchId: 0 
 
     })
 
@@ -45,7 +44,6 @@ export default function ModalCard() {
     const openModal = (modalResearchData:ModalCardPropType) =>{
         setModalResearch(modalResearchData)
         setOpenModal(true)
-        
     }
 
     function closeModal(){
@@ -59,9 +57,9 @@ export default function ModalCard() {
         handleOpenModal={openModal}
         />
         <Modal
-        isOpen = {isOpenModal}    
-        contentLabel="Tester"
-        style={customStyles}
+            isOpen = {isOpenModal}    
+            contentLabel="Tester"
+            style={customStyles}
         >
 
         <div className="flex flex-col items-center justify-center flex-shrink-0 w-[599px] h-[566px] rounded-xl bg-black">

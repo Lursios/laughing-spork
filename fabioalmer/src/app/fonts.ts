@@ -14,7 +14,7 @@ export const imageStyle = {
 export function titleStyle(title:string) { 
 
   const titleCharCount = title.length
-  if (titleCharCount <120 ) {
+  if (titleCharCount <100 ) {
       return "text-2xl"
   } else if (titleCharCount < 270 ) {
       return "text-xl"

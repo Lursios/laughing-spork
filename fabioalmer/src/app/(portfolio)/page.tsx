@@ -1,90 +1,24 @@
-"use client"
 import Image from 'next/image'
-import profilePic from "../../../public/images/Prof_Pic.jpg"
-import {useEffect, useState} from "react"
+import profileSticker from "../../../public/images/Fabio-Sticker.png"
 
-import Spotify from '../components/Spotify'
-import GetToKnowMe from '../components/GetToKnowMe'
-import Icons from '../components/Icons'
-import { getPosts } from './api/ResearchHandler'
-
-
-
-export default function MyPortofolio() {
-
-  const [isHiddenSpotify,setHiddenSpotify] = useState(true)
-  const [posts,setPosts] = useState<any>()
-
-  function handleSpotifyClick() {
-    setHiddenSpotify(!isHiddenSpotify)
-  }
-
-
-  // useEffect(()=> {
-    
-  //   const fetchData = async ()=> {
-  //     const data = await getPosts()
-  //     setPosts(data)
-  //   }
-
-  //   fetchData().catch((e)=> {
-  //     console.error("an error occured while getting the data", e)
-  //   })
-
-  // },[])
+const MyPortofolio = ()=> {
 
   return (
-    <div className= "flex w-4/5 mx-auto pl-14 pr-14 mt-6">
-
-      <div className="w-1/2 flex flex-col justify-center items-center">
-          {/* {posts && posts.map((post:any)=> {
-            return <p id={post.id}>{`${post.title}`}</p>
-          })} */}
-          <Image
-          src={profilePic}
-          alt='Picture of Author'
-          width={450}
-          height={510}
-          className='border-solid border-black border-4 rounded-xl '
-          />
-      </div>
-
-      <div className="w-1/2 flex flex-col justify-center items-center">
-
-        <div className='h-1/2'>
-            <blockquote className="bg-gray-100 border-l-4 rounded-lg border-gray-400 p-4 m-4 mt-0 text-gray-600 italic">
-              <p className='text-center'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin volutpat interdum. 
-              Vestibulum at purus egestas, tempus urna ut, suscipit mauris. 
-              Integer at mauris ligula. Nam scelerisque pulvinar tellus, id interdum 
-              eros rutrum vel. Sed risus ante, viverra id lorem ut, sollicitudin luctus lorem. 
-              Pellentesque ac egestas lorem. Quisque volutpat
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Nulla a metus id leo laoreet semper
-              eros rutrum vel. Sed risus ante, viverra id lorem ut, sollicitudin luctus lorem. 
-              Pellentesque ac egestas lorem. Quisque volutpat
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.  
-              <br></br>
-              <span className="text-blue-500 italic"> - Fabio Almer Agoes S.T, M.Sc </span>
-              </p>
-            </blockquote> 
-        </div>
-
-        <div className="h-1/2 flex flex-col items-center justify-center"> 
-          <Icons
-          spotifyClick={handleSpotifyClick}
-          />
-
-          <Spotify
-          hiddenStatus = {isHiddenSpotify}
-          />
-
-          <GetToKnowMe/>
-
+    <div className='flex items-end w-full xl:w-[70%] h-screen' style={{backgroundImage: "url('/images/Cardboard.jpg')"}}>
+      <div className='flex flex-col lg:flex-row items-end justify-center w-fit pb-20 lg:pb-0'>
+        <div className='flex flex-col h-full w-full lg:mb-24 items-center justify-center font-inter font-extralight tracking-widest lg:ml-20 text-5xl xl:text-[80px] leading-normal lg:leading-normal opacity-60'> 
+            <h1 className='mx-5 lg:mx-0'>Skolstrejk för klimatet </h1>
+          </div>
+          <Image 
+            src={profileSticker}
+            alt='Sticker of Mr Fabio' 
+            className='animation-front-flip w-36'
+          />      
         </div>
       </div>
 
-    </div>
-    
+     
   )
 }
+
+export default MyPortofolio;

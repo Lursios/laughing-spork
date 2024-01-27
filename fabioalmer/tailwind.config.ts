@@ -13,20 +13,38 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-
+      screens: {
+        'custom': {'raw':'(min-height: 800px )'}
+      },
       colors: {
         "butterscotch": "#E09647",
       },
 
       animation: {
-        "run": "run 30s linear infinite"
+        "slide-left": "slide-left 1s 1 var(--easing) both",
+        "card-preview-in": "card-preview-in var(--duration) var(--easing) both 1",
+        "card-preview-out" : "card-preview-out var(--duration) var(--easing) both 1"
       },
 
       keyframes : {
-        "run": {
-            "0%":{left: "0", transform :"translate-x-0"},
-            "100%" : {left:"100%", transform : "-translate-x-full" }
+        "slide-left": {
+          from: {transform: "translateX(-100vw)"},
+          to: {transform:"none"}
+
+        },
+        "card-preview-in": {
+          from: {transform:"translateY(2vh)", opacity:"0"},
+          to: {transform:"none",opacity:"1"}
+        },
+        "card-preview-out": {
+          from : {transform:"none",opacity:"1"},
+          to: {transform: "translateY(2vh)",opacity:"0"}
         }
+      },
+      fontFamily: {
+        montserrat:['Montserrat', 'sans-serif'],
+        inter:['Inter','libre'],
+        // crimsonText :['var(--crimson-font)', 'sans-serif']
       }
     },
   },
