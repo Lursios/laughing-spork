@@ -80,7 +80,7 @@ export default function CreatePost(){
     },[isSubmitSuccessful])
         
     return (
-        <>
+        <div className="bg-red-500 h-1/2 w-full overflow-y-scroll">
           <div className="flex flex-col ml-36 mt-10 mb-5 w-fit ">
             <h1 className="text-2xl text-extrabold text-white ">CREATE A NEW POST</h1>
             <p className="text-base text-bold text-yellow-500">Please Fill The Form as Needed</p>
@@ -95,7 +95,7 @@ export default function CreatePost(){
                         <PostInput  label="Link" register={methods.register} />
                         <PostInput  label="Publisher" register={methods.register} />
                         <PostInputType styleError={false} label="Postype" control={methods.control}/>
-                        <PostInputImage handleFileInput={onFileInput} register={methods.register}/>
+                        {/* <PostInputImage handleFileInput={onFileInput} register={methods.register}/> */}
                         <PbButton type="button" handleClick={confirmCardData} name="Confirm Data"/>
                     </div>
 
@@ -125,8 +125,7 @@ export default function CreatePost(){
 
               </form>
             </FormProvider>
-               
-        </>
+        </div>
 
       );
 }

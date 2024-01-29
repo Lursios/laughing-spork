@@ -65,7 +65,7 @@ export default function Navbar() {
 // this is for the main article part of the section
 export function PostNavbar(){
     return (
-        <div className={` flex flex-row justify-between text-2xl mt-16 mb-11 ${fasterOne.className}`}>
+        <div className={`bg-red-500 flex flex-row justify-between text-2xl mt-16 mb-11 ${fasterOne.className}`}>
             <Link href={"/publication&research"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Back to Homepage </Link>
             <Link href={"/"} className="hover:bg-white p-2"> Heartbreak Annivesary</Link>
         </div>
@@ -74,7 +74,7 @@ export function PostNavbar(){
 }
 export function PostManagerNavbar(){
     return (
-        <div className={` flex flex-row justify-between text-2xl mt-16 mb-11 ${fasterOne.className}`}>
+        <div className={`bg-red-500 flex flex-row justify-between text-2xl mt-32 mb-11 ${fasterOne.className}`}>
             <Link href={"/publication&research"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Back to Homepage </Link>
             <Link href={"/postManager/createPost"} className="hover:bg-white p-2 rounded-xl"> Create A Post </Link>
             <Link href={"/postManager/updatePost"} className="hover:bg-white p-2 rounded-xl"> Update a Post</Link>

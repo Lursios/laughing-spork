@@ -7,7 +7,7 @@ import { MdMenuBook } from "react-icons/md"; // this for the hover effect later
 
 
 
-Modal.setAppElement('#main');
+Modal.setAppElement('body');
 
 type ModalData =  {
     researchPage: string;
