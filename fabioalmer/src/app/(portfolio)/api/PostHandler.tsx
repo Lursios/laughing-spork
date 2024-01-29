@@ -23,7 +23,7 @@ export async function handlePostUpdate(data:PostValidationSchema,postId:number) 
 }
 
 
-export default async function handlePostSubmission(data:PostValidationSchema) {    
+export default async function  handlePostSubmission(data:PostValidationSchema) {    
     const image = await handleImageUploader(data.image);
     const type = data.postype.map((postype)=> postype.value).toString();
 
