@@ -149,7 +149,7 @@ export default function CreatePost(){
                         <PostInput  label="Link" register={methods.register} />
                         <PostInput  label="Publisher" register={methods.register} />
                         <PostInputType styleError={false} label="Postype" control={methods.control}/>
-                        {/* <PostInputImage handleFileInput={onFileInput} register={methods.register}/> */}
+                        <PostInputImage handleFileInput={onFileInput} register={methods.register}/>
                         <PbButton type="button" handleClick={confirmCardData} name="Confirm Data"/>
                     </div>
 
