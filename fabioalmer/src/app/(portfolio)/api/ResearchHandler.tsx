@@ -13,14 +13,27 @@ export async function updatePosts(data:FetchResearchType) {
         return result
 
     } catch (error) {
-        return {error}
+        console.error("Error When Updating Post To Database",error)
+        return null;
     }
 }
 
-export async function getPosts() {
+export type FetchResearchType = {
+    id:number,
+    title : string,
+    link : string, // doi
+    publisher : string,
+    authors : string,
+    image : string, //this the url to our save storage or something lah
+    summary : string,
+    content : string,
+    postype : string
+}   
+
+export async function getPosts():Promise<FetchResearchType[]> {
     try {
         // await new Promise(resolve => setTimeout(resolve,3000))
-        const researches:any = await prisma.posts.findMany({
+        const researches:FetchResearchType[] = await prisma.posts.findMany({
             select: {
                 id: true,
                 title:true,
@@ -35,9 +48,12 @@ export async function getPosts() {
         });
         return researches
     } catch (error) {
-        return {error}
+        console.error("Error When Fetching From Database",error)
+        return []
     }
 }
+
+
 
 export async function createPost(postData:CreateResearchType){
     try {
@@ -57,7 +73,8 @@ export async function createPost(postData:CreateResearchType){
         return {result}
 
     } catch(error) {
-        return {error}
+        console.error("Error When Creating A New Post to Database",error)
+        return null;
     }
 
 }
@@ -81,21 +98,12 @@ export async function getPostById(postId:number){
         return post
 
     } catch (error) {
-        return {error}
+        console.error("Error When Fetching Post By Id From Database",error)
+        return []
     }
 }
 
-export type FetchResearchType = {
-    id:number,
-    title : string,
-    link : string, // doi
-    publisher : string,
-    authors : string,
-    image : string, //this the url to our save storage or something lah
-    summary : string,
-    content : string,
-    postype : string
-}   
+
 
 
 export type CreateResearchType = {

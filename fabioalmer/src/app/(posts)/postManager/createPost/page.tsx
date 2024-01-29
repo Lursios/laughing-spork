@@ -1,7 +1,6 @@
 "use client"
-import { ResearchType } from "@/app/(portfolio)/api/ResearchHandler";
+
 import TextEditor from "@/app/components/articlePosts/TextEditor";
-import {Editor} from "@tinymce/tinymce-react";
 import { useEffect, useRef, useState } from "react";
 import { PostInputImage,PostInputSummary,PostInput,PostInputType } from "@/app/components/articlePosts/PostInputs";
 import {useForm,Controller, FormProvider, set} from "react-hook-form";
@@ -57,7 +56,7 @@ export default function CreatePost(){
     const onSubmit = async (data:PostValidationSchema)=> {
       const result = await handlePostSubmission(data); //This is equivalent of sending a POST request to our api route
       
-      console.log(result)
+      console.log(result);
     }
 
     const confirmCardData = ()=> {
@@ -131,3 +130,13 @@ export default function CreatePost(){
 
       );
 }
+
+
+
+// const CreatePost = ()=> {
+//   return (
+//     <div>This is where we're going to create the post stuff</div>
+//   )
+// }
+
+// export default CreatePost;
