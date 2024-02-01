@@ -1,6 +1,6 @@
 "use client"
 import { ResearchType } from "@/app/(portfolio)/api/ResearchHandler";
-import { titleStyle } from "@/app/fonts";
+import { titleStyle } from "@/utils/fonts";
 import { useState } from "react";
 import ModalCardPreview from "./ModalCard";
 
@@ -79,18 +79,17 @@ export function ResearchCardPost({research, handleCardClick,type}:ResearchCardPo
     const cardStyle = {backgroundImage: `url(${research.image})`,backgroundColor:type?"black":"white",backgroundSize: "cover", backgroundPosition: "center"}
 
     return (
-        <div className="flex flex-col bg-yellow-500">
-        <article onClick={()=>handleCardClick(research.id)} key={research.id} 
-        className={`flex flex-col bg-green-500flex-start flex-shrink-0 rounded-[105px] w-[430px] h-[590px] border-white border-solid border-0 py-7 px-6 `}
-        style={cardStyle}>
-            <h1 className=" text-black text-5xl font-extrabold mt-14 mx-8">{"."}</h1>
-            <p className={`font-extrabold text-4xl my-16 mx-8 ${titleStyle(research.title)} ${type?"text-[#3C3C3B]":"text-white"}`}>{research.title}</p>
-            <section className={`flex flex-col grow-0 w-fit bg-red-300 ${type?"text-black":"text-white"} text-base font-bold mx-8`}>
-                <p>Authors: {research.authors}</p>
-                <p>Publisher: {research.publisher}</p>
-                <p>Link: <a href={research.link}>{research.link}</a></p> 
-            </section>
-        </article>
+        <div className="flex flex-col">
+            <article onClick={()=>handleCardClick(research.id)} key={research.id} 
+            className={`flex flex-col bg-green-500flex-start flex-shrink-0 rounded-[105px] w-[430px] h-[590px] border-white border-solid border-0 py-7 px-6 `}
+            style={cardStyle}>
+                <p className={`font-extrabold text-4xl my-16 mx-8 ${titleStyle(research.title)} ${type?"text-[#3C3C3B]":"text-white"}`}>{research.title}</p>
+                <section className={`flex flex-col grow-0 w-fit ${type?"text-black":"text-white"} text-base font-bold mx-8`}>
+                    <p>Authors: {research.authors}</p>
+                    <p>Publisher: {research.publisher}</p>
+                    <p>Link: <a href={research.link}>{research.link}</a></p> 
+                </section>
+            </article>
         </div>
     )
     

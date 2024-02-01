@@ -30,7 +30,7 @@ const SocialMediaComponent = ()=> {
     return (
         <div className="grid grid-cols-3 lg:grid-cols-1 w-fit p-2 gap-3 text-xs lg:text-base items-center">
             {socialMedia.map((social,index)=> 
-                <a key={`social-${index+1}`} target="_blank" rel="noopener noreferrer" className={`scale-effect flex flex-col items-center justify-center`} href={social.socialLink}>
+                <a key={`social-${index+1}`} target="_blank" rel="noopener noreferrer" className={`flex flex-col items-center justify-center`} href={social.socialLink}>
                     <h1>{social.socialPlatform}</h1>
                     {social.socialIcon}
                 </a>

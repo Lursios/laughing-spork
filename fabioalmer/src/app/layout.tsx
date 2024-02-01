@@ -1,9 +1,8 @@
-"use client"
-import { crimsonText } from './fonts';
+import { crimsonText } from '../utils/fonts';
 import 'react-tooltip/dist/react-tooltip.css'
 import './globals.css'
 import '@fontsource/crimson-text';
-import { usePathname } from 'next/navigation';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 
 export default function RootLayout({
@@ -11,13 +10,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname();
-  const isNoScrollPage = pathname === "/publication&research";
 
   return (
     <html lang="en">
-      <body className={crimsonText.className} style={isNoScrollPage?{overflowY:'hidden'}:{}}>
+      <body className={crimsonText.className}>
           {children}
+          <SpeedInsights/>
       </body>
     </html>
   )

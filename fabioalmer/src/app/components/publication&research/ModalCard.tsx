@@ -4,6 +4,8 @@ import Modal from "react-modal";
 import PbButton from "@/app/components/publication&research/PbButton";
 import Image from "next/image";
 import { MdMenuBook } from "react-icons/md"; // this for the hover effect later 
+import { makeItShort } from "@/utils/fonts";
+import { useRouter } from "next/navigation";
 
 
 
@@ -79,25 +81,12 @@ type ModalCardProps = {
 }
 
 const ModalCard = ({onClose,modalData}:ModalCardProps)=> {
-    const makeItShort = (text:string)=> {
-        const wordLimit = 300;
 
-        if (text.length >= wordLimit ) {
-            const shorter = true
-            return {
-                text: text.slice(0,wordLimit),
-                shorter
-            }
-        } else {
-            const shorter = false
-            return {text,shorter}
-        }
-    }
-
+    const router = useRouter()
     const [summary,setSummary] = useState(makeItShort(modalData.researchSummary))
 
     const onFindOut = ()=> {
-        console.log(`I'm going to go to this page ${modalData.researchPage}`)
+        router.push(`/articlePosts/publication&research?id=${modalData.researchId}`)
     }
 
     const handleSeeMore = ()=> {
@@ -116,7 +105,6 @@ const ModalCard = ({onClose,modalData}:ModalCardProps)=> {
                         priority = {false}
                         sizes="(max-width: 768px) 30vw, (max-width : 1200px) 66vw"
                     />
-                    {/* <h1>{modalData.researchImage}</h1> */}
                 </div>
                 <div className="flex h-1/2 lg:h-3/5 md:w-3/4 flex-col items-center mx-5 gap-7 lg:overflow-y-scroll custom-scrollbar px-1">
                     <div className="flex flex-shrink text-sm md:text-base lg:text-xl text-white md:w-full">
@@ -139,14 +127,6 @@ const ModalCard = ({onClose,modalData}:ModalCardProps)=> {
                 </div>
             </div>
         </div>
-
-        // <div className="flex flex-col items-center justify-center bg-red-300 mx-[5px]">
-        //     <div className="flex flex-col flex-wrap items-center w-fit justify-center mx-10" >
-        //         <h1 className="flex flex-shrink">This is the top part of the card when clicked sadfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</h1>
-        //         <h1>This is what we need to do</h1>
-        //     </div>
-        //     <button onClick={onClose}>Close Modal</button>
-        // </div>
         
     )
 }

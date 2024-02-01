@@ -3,14 +3,20 @@
 export default function PostManager() {
     return (
         <div>
-            <h1>you need to be authenticated to manage stuff !</h1>
-            <form>
-                <label>Email:</label>
-                <input type="email"></input>
-                <label>Password:</label>
-                <input type="password"></input>
-                <button type="submit">Login</button>
-                <button type="reset">Reset</button>
+            <form className="flex flex-col gap-7">
+                <div className="flex flex-row gap-10">
+                    <label>Email</label>
+                    <input type="email"></input>
+                </div>
+                <div className="flex flex-row gap-10">
+                    <label>Password</label>
+                    <input type="password"></input>
+                </div>
+
+                <div className="flex flex-row gap-5">
+                    <button type="submit">Login</button>
+                    <button type="reset">Reset</button>
+                </div>
             </form>
         </div>
     )
