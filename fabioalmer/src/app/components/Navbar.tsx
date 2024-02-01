@@ -1,11 +1,11 @@
 "use client"
 import Link from "next/link";
-import { fasterOne } from "../fonts";
+import { fasterOne } from "../../utils/fonts";
 import { MdContacts } from "react-icons/md";
 import { GiGreenhouse,GiGreenPower } from "react-icons/gi";
 import { PiTreeEvergreenFill } from "react-icons/pi";
 import { SiGreenhouse } from "react-icons/si";
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 
@@ -60,27 +60,61 @@ export default function Navbar() {
     )
 }
 
-
-
 // this is for the main article part of the section
 export function PostNavbar(){
-    return (
-        <div className={`bg-red-500 flex flex-row justify-between text-2xl mt-16 mb-11 ${fasterOne.className}`}>
-            <Link href={"/publication&research"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Back to Homepage </Link>
-            <Link href={"/"} className="hover:bg-white p-2"> Heartbreak Annivesary</Link>
-        </div>
+    const router = useRouter();
 
+    const handleGoback = ()=> {
+        router.back()
+    }
+
+    return (
+        <div className={`bg-red-500 flex flex-row justify-between text-2xl w-screen px-20 ${fasterOne.className}`}>
+            <Link href={"/"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Fabio Almer </Link>
+            <button onClick={handleGoback} className="hover:bg-white p-2"> Back To Previous Page</button>
+        </div>
     )
 }
+
+
+const PostNavbarLink = [
+    {
+        id:1,
+        href:"/publication&research",
+        label:"Back To HomePage"
+    },
+    {
+        id:2,
+        href:"/postManager/createPost",
+        label:"Create A Post"
+    },
+    {
+        id:3,
+        href:"/postManager/updatePost",
+        label:"Update A Post"
+    },
+    {
+        id:4,
+        href:"/postManager/readPosts",
+        label:"Posts"
+    },
+    {
+        id:5,
+        href:"/postManager",
+        label:"Login/Logout"
+    },
+
+]
+
+
 export function PostManagerNavbar(){
     return (
-        <div className={`bg-red-500 flex flex-row justify-between text-2xl mt-32 mb-11 ${fasterOne.className}`}>
-            <Link href={"/publication&research"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Back to Homepage </Link>
-            <Link href={"/postManager/createPost"} className="hover:bg-white p-2 rounded-xl"> Create A Post </Link>
-            <Link href={"/postManager/updatePost"} className="hover:bg-white p-2 rounded-xl"> Update a Post</Link>
-            <Link href={"/postManager/readPosts"} className="hover:bg-white p-2 rounded-xl"> Posts </Link>
-            <Link href={"/postManager"} className="hover:bg-white p-2 rounded-l-xl"> Heartbreak Annivesary</Link>
+        <div className="fixed top-0 w-screen p-5 bg-black text-white z-50">
+            <div className={`flex flex-row items-center justify-center text-2xl gap-20 ${fasterOne.className}`}>
+                {PostNavbarLink.map((link)=> (
+                    <Link key={link.id} href={link.href} className="hover:outline p-2 rounded-xl"> {link.label} </Link>
+                ))}
+            </div>
         </div>
-
     )
 }

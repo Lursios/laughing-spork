@@ -1,12 +1,15 @@
+import { getPosts } from "@/app/(portfolio)/api/ResearchHandler"
+import PostTable from "@/app/components/articlePosts/PostTable";
 
 
+export default async function ReadPost() {
+  const data = await getPosts();
 
-
-
-export default function ReadPost() {
   return (
-    <article>
-      <h1>This is reading a page ....</h1>
-    </article>
+      <div className="flex flex-col">
+        <PostTable
+          datas={data}
+        />
+      </div>
   )
-} 
+}

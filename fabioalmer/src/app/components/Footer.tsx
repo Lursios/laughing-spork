@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { fasterOne } from "../fonts"
+import { fasterOne } from "../../utils/fonts"
 import { usePathname } from "next/navigation"
 import { FaArrowDownLong } from "react-icons/fa6";
 import useWindowDimension from "../hooks/useWindowDimensions";

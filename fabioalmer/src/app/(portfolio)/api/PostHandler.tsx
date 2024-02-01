@@ -4,6 +4,11 @@ import axios from "axios";
 import { createPost, updatePosts } from "./ResearchHandler";
 
 
+
+const createURL = (path:string)=> {
+    return window.location.origin + path
+}
+
 export async function handlePostUpdate(data:PostValidationSchema,postId:number) {
     // process the data so it can be submitted to the db 
     const updatedImage = await handleImageUploader(data.image)
@@ -67,5 +72,23 @@ async function handleImageUploader(imageData:string) {
         return result
     }
   
-
 }
+
+
+export const handlePostDeletion = async (id:number)=> {
+
+    const url = createURL('/api/Poster');
+    const formData = new FormData();
+    formData.append("id",String(id));
+
+    const res = await fetch(new Request(url,{
+        method: 'DELETE',
+        body: formData 
+    }));
+
+    if (res.ok) {
+        const data = await res.json();
+        return data.data
+    }
+}
+

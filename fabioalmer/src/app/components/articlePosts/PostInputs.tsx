@@ -18,7 +18,7 @@ export const PostInput = (({label,register}:PostInputProps)=> {
     return (
         <div className="flex flex-col mr-[200px]">  
             <label className="font-bold text-black text-base">{label}</label>
-            <input {...register(label.toLowerCase())} className={`border-solid border-2 w-[364px] h-7 mb-8 border-black rounded-md bg-white px-2`} placeholder={""}></input>
+            <input {...register(label.toLowerCase())} className={`border-solid border-2 w-[364px] h-7 border-black rounded-md bg-white px-2`} placeholder={""}></input>
         </div>
     )
 })
@@ -63,7 +63,7 @@ export function PostInputImage({register,handleFileInput}:PostInputImageProps) {
     return (
         <div className="flex flex-col mr-[200px]" {...getRootProps()}>  
             <label className="font-bold text-black text-base">Cover Image</label>
-            <div className="flex flex-col w-[364px] items-center justify-center mb-6">
+            <div className="flex flex-col w-[364px] items-center justify-center ">
 
                 <div className="flex flex-row w-full " {...getInputProps} >
                     <input className=" w-3/4 border-solid border-black border-2 bg-white" placeholder="Choose Files To Upload" disabled={true} {...register("image")}></input>
@@ -108,7 +108,7 @@ export function PostInputType({control,styleError,label}:postInputTypeProps) {
     const animatedComponents = makeAnimated();
 
     return (
-        <div className="flex flex-col w-[364px] mb-6">
+        <div className="flex flex-col w-[364px]">
             <label className="font-bold text-black text-base">Post Type</label>
             <Controller
             render={({field})=> {
@@ -149,7 +149,7 @@ export function PostInputSummary({label,control,handleButtonOneClick,handleButto
 
     const [characterCount,setCharacterCount] = useState<string>("0");
 
-    const onKeyDown = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleKeyUp = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const curentCharacter:string = event.target.value;
         setCharacterCount(curentCharacter.length.toString())
     }
@@ -161,7 +161,7 @@ export function PostInputSummary({label,control,handleButtonOneClick,handleButto
                 <span className="label-text font-extrabold text-black">{label}</span>
                 <span className="label-text-alt font-extrabold text-black ">{characterCount}/400</span>
             </label>
-            <textarea defaultValue={""} onKeyUp={onKeyDown} className="mx-1 outline outline-black outline-1 focus:outline-2 h-32 focus:outline-emerald-500  bg-white" {...control.register(label.toLowerCase())}/>
+            <textarea defaultValue={""} onKeyUp={handleKeyUp} className="mx-1 outline outline-black outline-1 focus:outline-2 h-32 focus:outline-emerald-500 bg-white" {...control.register(label.toLowerCase())}/>
             <div className="flex flex-row mx-1 "> 
                 <div className="flex flex-row my-6 space-x-4 w-8/12">
                     <PbButton name="Save Data" type="submit" handleClick = {()=> console.log("clicked")}/>

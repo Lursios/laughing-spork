@@ -4,9 +4,11 @@ import { PostManagerNavbar } from "../../components/Navbar"
 
 export default function Template({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex flex-col flex-shrink-0 w-11/12 mx-auto">
+        <div className="flex flex-col w-fit min-h-screen">
           <PostManagerNavbar/>
-          {children}
+          <div className="flex-1 box-border h-fit w-screen pt-32 px-36">
+            {children}
+          </div>
           <PostFooter/>
         </div>
     )

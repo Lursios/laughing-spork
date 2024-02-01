@@ -24,3 +24,20 @@ export function titleStyle(title:string) {
       return "not a valid text length please check again"
   }
 }   
+
+const makeItShort = (text:string)=> {
+    const wordLimit = 300;
+
+    if (text.length >= wordLimit ) {
+        const shorter = true
+        return {
+            text: text.slice(0,wordLimit),
+            shorter
+        }
+    } else {
+        const shorter = false
+        return {text,shorter}
+    }
+}
+
+export {makeItShort}

@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ResearchCardPost } from "@/app/components/publication&research/RNPbCard";
 import PbButton from "@/app/components/publication&research/PbButton";
 import handlePostSubmission from "@/app/(portfolio)/api/PostHandler";
+import { useRouter } from "next/navigation";
 
 
 
@@ -33,6 +34,8 @@ const postValidationSchema = z.object({
 export type PostValidationSchema = z.infer<typeof postValidationSchema>
 
 export default function CreatePost(){
+
+    const router = useRouter()
 
     const [isHidden,setHidden] = useState<boolean>(true)
     const [isDark,setDark] = useState<boolean>(true)
@@ -75,21 +78,24 @@ export default function CreatePost(){
 
       if (isSubmitSuccessful){
         reset()
+        alert("You have Succefully Created A New Post !")
+        router.refresh()
       }
       
     },[isSubmitSuccessful])
         
     return (
-        <div className="bg-red-500 h-1/2 w-full overflow-y-scroll">
-          <div className="flex flex-col ml-36 mt-10 mb-5 w-fit ">
-            <h1 className="text-2xl text-extrabold text-white ">CREATE A NEW POST</h1>
-            <p className="text-base text-bold text-yellow-500">Please Fill The Form as Needed</p>
-          </div>
+        <div className=""> 
+          <div className="flex flex-col gap-5 w-full">
+            <div className="flex flex-col items-start">
+              <h1 className="text-2xl text-extrabold">CREATE A NEW POST</h1>
+              <p className="text-base text-bold text-center">Please Fill All The Form </p>
+            </div>
             <FormProvider {...methods}>
-              <form className="flex flex-col ml-36 mr-40" onSubmit={handleSubmit(onSubmit)} >  
+              <form className="flex flex-col gap-7" onSubmit={handleSubmit(onSubmit)} >  
 
-                  <div className="flex flex-row mb-20">
-                    <div className="flex flex-col">
+                  <div className="flex flex-row">
+                    <div className="flex flex-col gap-7">
                         <PostInput  label="Title" register={methods.register} />
                         <PostInput  label="Authors" register={methods.register} />
                         <PostInput  label="Link" register={methods.register} />
@@ -99,7 +105,7 @@ export default function CreatePost(){
                         <PbButton type="button" handleClick={confirmCardData} name="Confirm Data"/>
                     </div>
 
-                    <div className="flex flex-col justify-center items-center space-y-4 h-fit ml-10">
+                    <div className="flex flex-col justify-start ">
                       <ResearchCardPost
                       handleCardClick={()=>setDark(!isDark)}
                       research={{...researchData,id:0}}
@@ -122,9 +128,9 @@ export default function CreatePost(){
                     />
                        
                   </div>
-
               </form>
             </FormProvider>
+          </div>
         </div>
 
       );
