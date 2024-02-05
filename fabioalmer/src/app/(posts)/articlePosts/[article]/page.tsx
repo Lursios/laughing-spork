@@ -63,7 +63,7 @@ const articlePage = ()=> {
         <Loading/>
         :
 
-        <div className="flex flex-col w-screen gap-7">
+        <div className="flex flex-col w-screen gap-7 px-3">
             <div className="flex flex-col items-center ">   
                 <div className="text-xl text-center font-bold">{fetchedData.title}</div>
                 <div className="text-lg">{`By: ${fetchedData.authors}`}</div>
@@ -73,7 +73,7 @@ const articlePage = ()=> {
                     ))}
                 </div>
             </div>
-            <div className="px-3">
+            <div className="text-justify">
                 {fetchedData.content}
             </div>
         </div>
