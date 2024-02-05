@@ -5,6 +5,7 @@ import { useEffect,useState,ReactNode } from "react";
 import parser,{Element} from "html-react-parser"
 import type { DOMNode,HTMLReactParserOptions } from "html-react-parser";
 import { posTypeSeperator } from "@/utils/postFunction";
+import Loading from "../loading";
 
 
 type articlePage = {
@@ -17,6 +18,7 @@ type articlePage = {
 const articlePage = ()=> {
     const searchParams = useSearchParams();
     const id = searchParams.get("id")
+    const [isLoading,setIsLoading] = useState<boolean>(true)
 
     const [fetchedData,setFetchedData] = useState<articlePage>(
         {
@@ -48,14 +50,20 @@ const articlePage = ()=> {
                 const parsedContent = parser(data.content,options); // parse the string html to just pure html
                 const postTypes = posTypeSeperator(data.postype); // seperate the postype to each types
                 setFetchedData({...data,content:parsedContent,postype:postTypes})
+                setIsLoading(false)
             }
         }
+        
         getPost()
 
     },[])
     
     return (
-        <div className="flex flex-col w-screen gap-7">
+        isLoading?
+        <Loading/>
+        :
+
+        <div className="flex flex-col w-screen gap-7 px-3">
             <div className="flex flex-col items-center ">   
                 <div className="text-xl text-center font-bold">{fetchedData.title}</div>
                 <div className="text-lg">{`By: ${fetchedData.authors}`}</div>
@@ -64,9 +72,8 @@ const articlePage = ()=> {
                         <div key={`${index}-${type}`} className="badge">{type}</div>
                     ))}
                 </div>
-
             </div>
-            <div>
+            <div className="text-justify">
                 {fetchedData.content}
             </div>
         </div>

@@ -7,6 +7,8 @@ import { PiTreeEvergreenFill } from "react-icons/pi";
 import { SiGreenhouse } from "react-icons/si";
 import { usePathname,useRouter } from "next/navigation";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import { BsSkipBackwardBtn } from "react-icons/bs";
+
 
 
 const logoSize = "2.5rem"
@@ -62,16 +64,18 @@ export default function Navbar() {
 
 // this is for the main article part of the section
 export function PostNavbar(){
+    
     const router = useRouter();
-
     const handleGoback = ()=> {
         router.back()
     }
 
     return (
-        <div className={`bg-red-500 flex flex-row justify-between text-2xl w-screen px-20 ${fasterOne.className}`}>
-            <Link href={"/"} className="hover:bg-white flex justify-center items-center pr-2 rounded-r-xl "> Fabio Almer </Link>
-            <button onClick={handleGoback} className="hover:bg-white p-2"> Back To Previous Page</button>
+        <div className={`flex items-end text-sm lg:text-2xl  w-screen md:w-[680px] py-5 ${fasterOne.className}`}>
+            <button onClick={handleGoback} className="hover:bg-white flex flex-row items-center justify-center gap-3 ">
+                <BsSkipBackwardBtn size={logoSizeMobile}/>
+                <p>Back To Previous Page</p>
+            </button>
         </div>
     )
 }
